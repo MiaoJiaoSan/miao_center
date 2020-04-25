@@ -12,6 +12,7 @@
         <module>component</module>
         <module>user</module>
         <module>eureka</module>
+        <module>duplicate</module>
     </modules>
 
     <properties>

@@ -1,12 +1,12 @@
 server:
-  port: 9000
+  port: 9001
 
 
 eureka:
   #eureka实例
   instance:
     #eureka所在主机名称
-    hostname: eureka
+    hostname: duplicate
   environment: dev
   client:
     #获取注册信息，本身就是eureka不需要获取

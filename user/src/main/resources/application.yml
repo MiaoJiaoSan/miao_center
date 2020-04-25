@@ -79,5 +79,6 @@ management:
 info:
   app:
     name: user
-  build.artifactId: ${project.artifactId}
-  build.modelVersion: ${project.modelVersion}
+  build:
+    artifactId: ${project.artifactId}
+    modelVersion: ${project.version}
