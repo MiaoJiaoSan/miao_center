@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "info.app.name",
+      "type": "java.lang.String",
+      "description": "Description for info.app.name."
+    },
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.lang.String",
+      "description": "Description for management.endpoints.web.exposure.include."
+    }
+  ] }

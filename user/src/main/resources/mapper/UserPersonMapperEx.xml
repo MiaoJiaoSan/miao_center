@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.miaojiaosan.user.dal.mapperex.UserPersonMapperEx">
+    <resultMap id="BaseResultMap"
+               type="com.miaojiaosan.user.dal.dao.UserPersonDAO"
+               extends="com.miaojiaosan.user.dal.mapper.UserPersonMapper.BaseResultMap"/>
+    <insert id="insert" parameterType="com.miaojiaosan.user.dal.dao.UserPersonDAO"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user_person
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="certificatesType != null">
+                certificates_type,
+            </if>
+            <if test="certificates != null">
+                certificates,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="modify != null">
+                modify,
+            </if>
+            <if test="modify == null">
+                modify,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificatesType != null">
+                #{certificatesType,jdbcType=INTEGER},
+            </if>
+            <if test="certificates != null">
+                #{certificates,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="modify != null">
+                #{modify,jdbcType=BIGINT},
+            </if>
+            <if test="modify == null">
+                0,
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

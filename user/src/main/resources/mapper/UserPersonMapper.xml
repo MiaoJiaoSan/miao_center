@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.miaojiaosan.user.dal.mapper.UserPersonMapper" >
+  <resultMap id="BaseResultMap" type="com.miaojiaosan.user.dal.dao.UserPersonDAO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="certificates_type" property="certificatesType" jdbcType="INTEGER" />
+    <result column="certificates" property="certificates" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="modify" property="modify" jdbcType="BIGINT" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_person
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.miaojiaosan.user.dal.dao.UserPersonDAO" >
+    insert into user_person (id, name, age, 
+      gender, birthday, certificates_type, 
+      certificates, email, phone, 
+      version, modify, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, #{certificatesType,jdbcType=INTEGER}, 
+      #{certificates,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{version,jdbcType=BIGINT}, #{modify,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miaojiaosan.user.dal.dao.UserPersonDAO" >
+    update user_person
+    set name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      certificates_type = #{certificatesType,jdbcType=INTEGER},
+      certificates = #{certificates,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      version = #{version,jdbcType=BIGINT},
+      modify = #{modify,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, age, gender, birthday, certificates_type, certificates, email, phone, 
+    version, modify, modify_time
+    from user_person
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, age, gender, birthday, certificates_type, certificates, email, phone, 
+    version, modify, modify_time
+    from user_person
+  </select>
+</mapper>
