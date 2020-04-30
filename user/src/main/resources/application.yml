@@ -6,8 +6,8 @@ spring:
     user:
       name: user
       password: 123456
-  profiles:
-    active: eureka
+#  profiles:
+#    active: eureka
   application:
     name: user
   datasource:
@@ -82,3 +82,7 @@ info:
   build:
     artifactId: ${project.artifactId}
     modelVersion: ${project.version}
+
+shiro:
+  sessionManager:
+    sessionIdCookieEnabled:

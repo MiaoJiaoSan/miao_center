@@ -43,8 +43,8 @@ public class UserDO {
    */
   private Account account;
 
-  public void registry(Account account){
-    this.account = account;
+  public void registry(){
+//    account.setValidate(1);
   }
 
   public boolean login(Account account){
