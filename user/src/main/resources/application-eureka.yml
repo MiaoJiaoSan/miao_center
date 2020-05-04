@@ -1,8 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka:eureka@eureka:9000/eureka
-      #,http://eureka:123456@duplicate:9001/eureka
+      defaultZone: http://eureka:eureka@eureka:9000/eureka,http://eureka:eureka@duplicate:9001/eureka
   instance:
     #注册服务名
 #    instance-id: user

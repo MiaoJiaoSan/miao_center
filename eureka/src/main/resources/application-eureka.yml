@@ -1,0 +1,10 @@
+server:
+  port: 9000
+
+
+eureka:
+  #eureka实例
+  instance:
+    #eureka所在主机名称
+    hostname: eureka
+

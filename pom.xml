@@ -12,9 +12,9 @@
         <module>component</module>
         <module>user</module>
         <module>eureka</module>
-        <module>duplicate</module>
         <module>article</module>
         <module>material</module>
+        <module>demo</module>
     </modules>
 
     <properties>

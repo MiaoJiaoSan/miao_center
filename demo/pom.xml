@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>user</artifactId>
+    <artifactId>demo</artifactId>
     <build>
         <resources>
             <resource>
@@ -25,13 +25,13 @@
                 <configuration>
                     <encoding>utf-8</encoding>
                     <useDefaultDelimiters>true</useDefaultDelimiters>
-                        <!-- 指定过滤的表达式
-                            <delimit>$</delimit> : 表示 过滤开头为 $ 结束为 $ 的内容，例如 $project.versionb$
-                            <delimit>${*}</delimit> 表示 过滤${}包裹的内容，例如 ${project.vserion}
-                         -->
-<!--                    <delimiters>-->
-<!--                        <delimit>${*}</delimit>-->
-<!--                    </delimiters>-->
+                    <!-- 指定过滤的表达式
+                        <delimit>$</delimit> : 表示 过滤开头为 $ 结束为 $ 的内容，例如 $project.versionb$
+                        <delimit>${*}</delimit> 表示 过滤${}包裹的内容，例如 ${project.vserion}
+                     -->
+                    <!--                    <delimiters>-->
+                    <!--                        <delimit>${*}</delimit>-->
+                    <!--                    </delimiters>-->
                 </configuration>
             </plugin>
             <!--编译设置-->
@@ -81,10 +81,10 @@
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-spring-boot-starter</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -121,4 +121,5 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
+
 </project>

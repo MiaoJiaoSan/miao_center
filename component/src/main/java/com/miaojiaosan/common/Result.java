@@ -59,4 +59,28 @@ public class Result<T> {
     return new Result<>(false, null);
   }
 
+  @Override
+  public String toString() {
+    return "Result{" +
+      "result=" + result +
+      ", msg='" + msg + '\'' +
+      ", value=" + value.toString() +
+      '}';
+  }
+
+  public String getMsg() {
+    return msg;
+  }
+
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
+
+  public T getValue() {
+    return value;
+  }
+
+  public void setValue(T value) {
+    this.value = value;
+  }
 }

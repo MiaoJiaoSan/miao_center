@@ -1,4 +1,4 @@
-package com.miaojiaosan.duplicate;
+package com.miaojiaosan.demo.configuration;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +16,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     //使用Security需要关闭csrf
     http.csrf().disable();
-    super.configure(http);
+    //开启认证：URL格式登陆必须是httpBasic
+    http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
   }
 }
