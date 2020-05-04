@@ -5,8 +5,9 @@ import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 
 /**
+ * 用户
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 public interface UserOptApi {
   /**

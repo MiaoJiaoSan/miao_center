@@ -4,7 +4,7 @@ import com.miaojiaosan.common.Result;
 
 /**
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 public interface UserQryApi {
   /**

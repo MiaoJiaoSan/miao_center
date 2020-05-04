@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>article</artifactId>
+    <artifactId>material</artifactId>
     <build>
         <resources>
             <resource>
@@ -110,4 +110,5 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
+
 </project>

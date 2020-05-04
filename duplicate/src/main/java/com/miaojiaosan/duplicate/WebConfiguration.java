@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @SpringBootConfiguration
 @EnableWebSecurity
