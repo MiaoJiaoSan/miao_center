@@ -5,7 +5,7 @@ spring:
   security:
     user:
       name: user
-      password: 123456
+      password: user
   profiles:
     active: eureka
   application:

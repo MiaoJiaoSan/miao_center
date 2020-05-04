@@ -15,7 +15,7 @@ eureka:
     register-with-eureka: false
     #eureka互相注册
     service-url:
-      defaultZone: http://eureka:123456@eureka:9000/eureka
+      defaultZone: http://eureka:eureka:eureka@eureka:9000/eureka
       #,http://eureka:123456@duplicate:9001/eureka
   server:
     #设置清理的间隔时间，单位为毫秒 默认60s
@@ -27,4 +27,4 @@ spring:
   security:
     user:
       name: eureka
-      password: 123456
+      password: eureka

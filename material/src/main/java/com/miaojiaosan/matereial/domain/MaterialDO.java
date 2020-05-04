@@ -38,6 +38,10 @@ public class MaterialDO extends Base {
   private Integer numberOfPeopleReading;
 
   /**
+   * 赞
+   */
+  private Integer fabulous;
+  /**
    * 评论
    */
   private List<Comment> comments;

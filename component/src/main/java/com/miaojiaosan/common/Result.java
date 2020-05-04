@@ -57,43 +57,10 @@ public class Result<T> {
     return this.result;
   }
 
-  public void isSuccessful(Consumer<? super T> consumer) {
-    if (value != null) {
-      consumer.accept(value);
-    }
-  }
 
-  public T get() {
-    return this.value;
-  }
-
-  public Result<T> filter(Predicate<? super T> predicate) {
-    Objects.requireNonNull(predicate);
-    if (!isResult()) {
-      return this;
-    } else {
-      return predicate.test(value) ? this : Result.empty();
-    }
-  }
 
   public static <T> Result<T> empty() {
     return new Result<>(false, null);
   }
 
-
-  public String getMsg() {
-    return msg;
-  }
-
-  public void setMsg(String msg) {
-    this.msg = msg;
-  }
-
-  public T getValue() {
-    return value;
-  }
-
-  public void setValue(T value) {
-    this.value = value;
-  }
 }

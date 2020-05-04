@@ -15,11 +15,11 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 public class MaterialApplication {
 
-  @Bean
+/*  @Bean
   @LoadBalanced
   public RestTemplate restTemplate(){
     return new RestTemplate();
-  }
+  }*/
 
   public static void main(String[] args) {
     SpringApplication.run(MaterialApplication.class, args);

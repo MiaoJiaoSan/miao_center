@@ -1,11 +1,11 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka:123456@eureka:9000/eureka
+      defaultZone: http://eureka:eureka@eureka:9000/eureka
       #,http://eureka:123456@duplicate:9001/eureka
   instance:
     #注册服务名
-    instance-id: material
+#    instance-id: material
     #显示ip
     prefer-ip-address: true
     #心跳检查时间间隔 默认30s
