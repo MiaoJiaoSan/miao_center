@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  * 统一返回结果
  *
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 public class Result<T> {
   private final boolean result;
@@ -17,6 +17,9 @@ public class Result<T> {
 
   private T value;
 
+  public Result() {
+    this.result = false;
+  }
 
   private Result(boolean result, T value) {
     this.result = result;
@@ -31,16 +34,18 @@ public class Result<T> {
 
   /**
    * 成功的
+   *
    * @param value 结果数据
-   * @param <T> 结果泛型
+   * @param <T>   结果泛型
    * @return {@link Result}
    */
   public static <T> Result<T> successful(T value) {
-    return new Result<T>(true, value);
+    return new Result<>(true, value);
   }
 
   /**
    * 失败的
+   *
    * @param msg 失败原因
    * @return {@link Result}
    */
@@ -48,7 +53,7 @@ public class Result<T> {
     return new Result<>(false, msg, null);
   }
 
-  public boolean isResult(){
+  public boolean isResult() {
     return this.result;
   }
 
@@ -58,19 +63,20 @@ public class Result<T> {
     }
   }
 
-  public T get(){
+  public T get() {
     return this.value;
   }
 
   public Result<T> filter(Predicate<? super T> predicate) {
     Objects.requireNonNull(predicate);
-    if (!isResult())
+    if (!isResult()) {
       return this;
-    else
+    } else {
       return predicate.test(value) ? this : Result.empty();
+    }
   }
 
-  public static <T> Result<T> empty(){
+  public static <T> Result<T> empty() {
     return new Result<>(false, null);
   }
 

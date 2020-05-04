@@ -1,16 +1,16 @@
-package com.miaojiaosan.user.domain.data;
+package com.miaojiaosan.user.service.dto;
 
-import com.miaojiaosan.common.domain.data.Base;
+import com.miaojiaosan.common.service.dto.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * @author miaojiaosan
- * @date 2020/4/25
+ * @date 2020/5/4
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Account extends Base {
+public class AccountDTO extends BaseDTO {
   /**
    * 主键
    */
@@ -19,10 +19,6 @@ public class Account extends Base {
    * 账号
    */
   private String account;
-  /**
-   * 密码
-   */
-  private String password;
   /**
    *
    */
@@ -40,7 +36,12 @@ public class Account extends Base {
    */
   private String phone;
   /**
-   * 实名
+   * 验证
    */
   private Integer validate;
+  /**
+   * 用户id
+   */
+  private Long userId;
 }
+

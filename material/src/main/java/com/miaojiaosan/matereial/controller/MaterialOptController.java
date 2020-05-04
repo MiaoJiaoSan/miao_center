@@ -5,6 +5,9 @@ import com.miaojiaosan.material.api.MaterialOptApi;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
 
 /**
  * @author miaojiaosan
@@ -14,13 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/material/opt")
 public class MaterialOptController implements MaterialOptApi {
 
+  @Resource
+  private RestTemplate restTemplate;
+
   /**
    * 发布素材
    * @return value==true 成功
    */
   @PostMapping("/release")
   public Result<Boolean> release() {
-    return Result.empty();
+    //url 实例名 + url
+    Result<?> voResult = restTemplate.getForObject("http://user/account/qry/id/4", Result.class);
+    System.out.println(voResult);
+    return Result.successful(true);
   }
 
 }

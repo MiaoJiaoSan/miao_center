@@ -1,14 +1,17 @@
 package com.miaojiaosan.user.domain;
 
+import com.miaojiaosan.common.domain.data.Base;
 import com.miaojiaosan.user.domain.data.Account;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @Data
-public class UserDO {
+@EqualsAndHashCode(callSuper = true)
+public class UserDO extends Base {
 
   /**
    * 主键
@@ -48,6 +51,7 @@ public class UserDO {
   }
 
   public boolean login(Account account){
-    return account.getPassword().equals(account.getPassword());
+    return this.account.getPassword().equals(account.getPassword());
   }
 }
+

@@ -1,13 +1,16 @@
 package com.miaojiaosan.matereial.domain.data;
 
+import com.miaojiaosan.common.domain.data.Base;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author miaojiaosan
  * @date 2020/5/4
  */
 @Data
-public class Category {
+@EqualsAndHashCode(callSuper = true)
+public class Category extends Base {
   /**
    * 分类编码
    */

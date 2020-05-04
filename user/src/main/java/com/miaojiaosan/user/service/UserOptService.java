@@ -1,26 +1,26 @@
 package com.miaojiaosan.user.service;
 
-import com.miaojiaosan.user.cmd.opt.LoginOpt;
-import com.miaojiaosan.user.cmd.opt.RegistryOpt;
+import com.miaojiaosan.user.service.dto.LoginDTO;
+import com.miaojiaosan.user.service.dto.RegistryDTO;
 
 /**
  * 用户数据操作service
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 public interface UserOptService {
 
   /**
    * 注册
-   * @param registryOpt {@link RegistryOpt}
+   * @param registryDTO {@link RegistryDTO}
    * @return true 注册成功
    */
-  Boolean registry(RegistryOpt registryOpt);
+  Boolean registry(RegistryDTO registryDTO);
 
   /**
    * 登录
-   * @param loginOpt {@link LoginOpt}
+   * @param loginDTO {@link LoginDTO}
    * @return true 登录成功
    */
-  Boolean login(LoginOpt loginOpt);
+  Boolean login(LoginDTO loginDTO);
 }

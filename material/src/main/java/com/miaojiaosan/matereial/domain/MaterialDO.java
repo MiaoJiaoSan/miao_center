@@ -1,9 +1,11 @@
 package com.miaojiaosan.matereial.domain;
 
+import com.miaojiaosan.common.domain.data.Base;
 import com.miaojiaosan.matereial.domain.data.Author;
 import com.miaojiaosan.matereial.domain.data.Category;
 import com.miaojiaosan.matereial.domain.data.Comment;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.List;
  * @date 2020/5/4
  */
 @Data
-public class MaterialDO {
+@EqualsAndHashCode(callSuper = true)
+public class MaterialDO extends Base {
 
   /**
    * 主键
@@ -43,6 +46,11 @@ public class MaterialDO {
    * 作者
    */
   private Author author;
+
+  /**
+   * 原创  1：原创  2：转载
+   */
+  private Integer isOriginal;
 
   /**
    * 发布时间

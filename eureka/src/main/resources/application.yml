@@ -7,7 +7,7 @@ eureka:
   instance:
     #eureka所在主机名称
     hostname: eureka
-  environment: dev
+#  environment: dev
   client:
     #获取注册信息，本身就是eureka不需要获取
     fetch-registry: false
@@ -15,7 +15,8 @@ eureka:
     register-with-eureka: false
     #eureka互相注册
     service-url:
-      defaultZone: http://eureka:123456@eureka:9000/eureka,http://eureka:123456@duplicate:9001/eureka
+      defaultZone: http://eureka:123456@eureka:9000/eureka
+      #,http://eureka:123456@duplicate:9001/eureka
   server:
     #设置清理的间隔时间，单位为毫秒 默认60s
     eviction-interval-timer-in-ms: 1000
