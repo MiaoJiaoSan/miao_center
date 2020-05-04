@@ -11,9 +11,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class LoginDTO extends BaseDTO {
-
+  /**
+   * 账号
+   */
   private String account;
-
+  /**
+   * 密码
+   */
   private String password;
 
   private String code;

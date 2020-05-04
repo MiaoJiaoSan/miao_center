@@ -10,12 +10,9 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 注册事件
  * @author miaojiaosan
- * @date: 2020/4/27
+ * @date 2020/4/27
  */
 public class RegistryEvent extends ApplicationEvent {
-
-  Lock sync = new ReentrantLock();
-  Condition condition = sync.newCondition();
 
   public RegistryEvent(UserDO userDO) {
     super(userDO);

@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * @author miaojiaosan
- * @date: 2020/4/28
+ * @date 2020/4/28
  */
 @SpringBootConfiguration
 public class DozerConfiguration {

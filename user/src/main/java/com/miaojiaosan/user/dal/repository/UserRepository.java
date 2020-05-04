@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 /**
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @Repository
 public class UserRepository {
@@ -27,7 +27,7 @@ public class UserRepository {
   @Resource
   private Mapper mapper;
 
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public Boolean addDataBase(UserDO userDO){
     UserPersonDAO userPersonDAO = new UserPersonDAO();
     BeanUtils.copyProperties(userDO, userPersonDAO);

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 用户查询controller
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @RestController
 @RequestMapping("/user/qry")

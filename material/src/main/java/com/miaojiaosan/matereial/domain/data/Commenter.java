@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * 评论人
  * @author miaojiaosan
  * @date 2020/5/4
  */

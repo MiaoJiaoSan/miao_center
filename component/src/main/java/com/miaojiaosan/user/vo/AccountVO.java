@@ -21,11 +21,11 @@ public class AccountVO extends BaseVO {
    */
   private String account;
   /**
-   *
+   * 名称
    */
   private String nickname;
   /**
-   *
+   * 图像
    */
   private String picture;
   /**

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
+ * 用户注册时间监听
  * @author miaojiaosan
  * @date 2020/4/27
  */

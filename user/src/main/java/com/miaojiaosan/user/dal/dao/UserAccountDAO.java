@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 用户账号数据访问对象
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -25,11 +25,11 @@ public class UserAccountDAO extends BaseDAO {
    */
   private String password;
   /**
-   *
+   * 名称
    */
   private String nickname;
   /**
-   *
+   * 图像
    */
   private String picture;
   /**
