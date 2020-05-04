@@ -70,6 +70,10 @@ pagehelper:
   params: count=countSql
 
 management:
+  #默认健康检查全部禁用
+  health:
+    defaults:
+      enabled: false
   endpoints:
     web:
       exposure:

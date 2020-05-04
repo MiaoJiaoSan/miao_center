@@ -16,6 +16,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     //使用Security需要关闭csrf
     http.csrf().disable();
-    super.configure(http);
+    //开启认证：URL格式登陆必须是httpBasic
+    http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
   }
 }

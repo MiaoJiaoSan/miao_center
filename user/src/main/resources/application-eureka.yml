@@ -9,6 +9,6 @@ eureka:
     #显示ip
     prefer-ip-address: true
     #心跳检查时间间隔 默认30s
-    lease-renewal-interval-in-seconds: 2
+    lease-renewal-interval-in-seconds: 30
     #超过时间认为服务已死 默认90s
-    lease-expiration-duration-in-seconds: 5
+    lease-expiration-duration-in-seconds: 90
