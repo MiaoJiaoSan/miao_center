@@ -13,6 +13,7 @@
         <module>user</module>
         <module>eureka</module>
         <module>duplicate</module>
+        <module>article</module>
     </modules>
 
     <properties>

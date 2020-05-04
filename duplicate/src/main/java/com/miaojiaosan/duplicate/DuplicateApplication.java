@@ -1,4 +1,4 @@
-package com.miaojiaosan;
+package com.miaojiaosan.duplicate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

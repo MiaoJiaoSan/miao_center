@@ -26,4 +26,40 @@
             <b>phone</b>
         </field>
     </mapping>
+    <mapping>
+        <class-a>com.miaojiaosan.user.cmd.opt.LoginOpt</class-a>
+        <class-b>com.miaojiaosan.user.domain.data.Account</class-b>
+        <field>
+            <a>account</a>
+            <b>account</b>
+        </field>
+        <field>
+            <a>password</a>
+            <b>password</b>
+        </field>
+    </mapping>
+    <mapping>
+        <class-a>com.miaojiaosan.user.cmd.opt.RegistryOpt</class-a>
+        <class-b>com.miaojiaosan.user.domain.data.Account</class-b>
+        <field>
+            <a>account</a>
+            <b>account</b>
+        </field>
+        <field>
+            <a>password</a>
+            <b>password</b>
+        </field>
+        <field>
+            <a>nickname</a>
+            <b>nickname</b>
+        </field>
+        <field>
+            <a>email</a>
+            <b>email</b>
+        </field>
+        <field>
+            <a>phone</a>
+            <b>phone</b>
+        </field>
+    </mapping>
 </mappings>

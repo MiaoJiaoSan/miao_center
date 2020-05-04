@@ -1,4 +1,4 @@
-package com.miaojiaosan;
+package com.miaojiaosan.eureka;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
