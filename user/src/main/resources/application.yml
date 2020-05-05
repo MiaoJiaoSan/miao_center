@@ -1,6 +1,7 @@
 server:
   port: 8001
 
+
 spring:
   security:
     user:
@@ -10,6 +11,12 @@ spring:
     active: eureka
   application:
     name: user
+  redis:
+    host: www.miaojiaosan.com
+    port: 9736
+    database: 0
+    timeout: 3000ms
+    password: redis
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

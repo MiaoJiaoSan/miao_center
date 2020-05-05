@@ -43,4 +43,8 @@ public class Account extends Base {
    * 实名
    */
   private Integer validate;
+  /**
+   * sessionId
+   */
+  private String sessionId;
 }

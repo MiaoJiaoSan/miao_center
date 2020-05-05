@@ -1,0 +1,18 @@
+server:
+  port: 9010
+
+eureka:
+  client:
+    #获取注册信息，本身就是eureka不需要获取
+    fetch-registry: false
+    #当前服务是否要注册到eureka中,不需要
+    register-with-eureka: false
+    #eureka互相注册
+    service-url:
+      defaultZone: http://eureka:eureka@eureka:9000/eureka,http://eureka:eureka@duplicate:9001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

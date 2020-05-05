@@ -1,4 +1,4 @@
-package com.miaojiaosan.user.dal.repository;
+package com.miaojiaosan.user.dal.repository.database;
 
 import com.miaojiaosan.user.dal.dao.UserAccountDAO;
 import com.miaojiaosan.user.dal.dao.UserPersonDAO;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @date 2020/4/25
  */
 @Repository
-public class UserRepository {
+public class UserDataBaseRepository {
 
   @Resource
   private UserAccountMapperEx userAccountMapperEx;
@@ -43,9 +43,7 @@ public class UserRepository {
     return row > 0;
   }
 
-  public Boolean addRedis(UserDO userDO){
-    return true;
-  }
+
 
   public UserDO byAccountDataBase(Account account){
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());

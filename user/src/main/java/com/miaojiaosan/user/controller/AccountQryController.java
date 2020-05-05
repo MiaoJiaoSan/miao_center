@@ -5,6 +5,8 @@ import com.miaojiaosan.user.api.AccountQryApi;
 import com.miaojiaosan.user.service.AccountQryService;
 import com.miaojiaosan.user.service.dto.AccountDTO;
 import com.miaojiaosan.user.vo.AccountVO;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +30,17 @@ public class AccountQryController implements AccountQryApi {
   @Resource
   private Mapper mapper;
 
-  @Override
+
+  @HystrixCommand
   @GetMapping("/id/{id}")
+  @Override
   public Result<AccountVO> byId(@PathVariable("id") Long id){
     AccountDTO accountDTO =accountQryService.byId(id);
     AccountVO accountVO = mapper.map(accountDTO, AccountVO.class);
     return Result.successful(accountVO);
   }
 
+  @HystrixCommand
   @GetMapping("/account/{account}")
   @Override
   public Result<AccountVO> byAccount(@PathVariable("account") String account){
@@ -44,6 +49,7 @@ public class AccountQryController implements AccountQryApi {
     return Result.successful(accountVO);
   }
 
+  @HystrixCommand
   @GetMapping("/email/{email}")
   @Override
   public Result<AccountVO> byEmail(@PathVariable("email") String email) {
@@ -52,6 +58,7 @@ public class AccountQryController implements AccountQryApi {
     return Result.successful(accountVO);
   }
 
+  @HystrixCommand
   @GetMapping("/phone/{phone}")
   @Override
   public Result<AccountVO> byPhone(@PathVariable("phone") String phone) {

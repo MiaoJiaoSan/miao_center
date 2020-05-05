@@ -3,10 +3,6 @@ package com.miaojiaosan.user.domain.event;
 import com.miaojiaosan.user.domain.UserDO;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * 注册事件
  * @author miaojiaosan

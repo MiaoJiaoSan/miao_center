@@ -1,5 +1,8 @@
 eureka:
   client:
+    healthcheck:
+      #开启健康检查
+      enabled: true
     service-url:
       defaultZone: http://eureka:eureka@eureka:9000/eureka,http://eureka:eureka@duplicate:9001/eureka
   instance:

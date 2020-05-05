@@ -1,6 +1,7 @@
 package com.miaojiaosan.user.service.impl;
 
-import com.miaojiaosan.user.dal.repository.UserRepository;
+import com.miaojiaosan.user.dal.repository.database.UserDataBaseRepository;
+import com.miaojiaosan.user.dal.repository.redis.UserRedisRepository;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.event.LoginEvent;
@@ -13,6 +14,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * 用户数据操作service
@@ -25,10 +27,17 @@ public class UserOptServiceImpl implements UserOptService {
 
   @Resource
   private ApplicationEventPublisher eventPublisher;
-  @Resource
-  private UserRepository userRepository;
+  @Resource(type = UserDataBaseRepository.class)
+  private UserDataBaseRepository dataBase;
+  @Resource(type = UserRedisRepository.class)
+  private UserRedisRepository redis;
+
+
   @Resource
   private Mapper mapper;
+
+  @Resource
+  private HttpSession httpSession;
 
 
   @Override
@@ -38,7 +47,7 @@ public class UserOptServiceImpl implements UserOptService {
     userDO.setEmail(account.getEmail());
     userDO.setPhone(account.getPhone());
     userDO.setAccount(account);
-    boolean rst = userRepository.addDataBase(userDO);
+    boolean rst = dataBase.addDataBase(userDO);
     if (rst) {
       userDO.registry();
       eventPublisher.publishEvent(new RegistryEvent(userDO));
@@ -50,10 +59,11 @@ public class UserOptServiceImpl implements UserOptService {
   @Override
   public Boolean login(LoginDTO loginDTO) {
     Account account = mapper.map(loginDTO,Account.class);
-    UserDO userDO = userRepository.byAccountDataBase(account);
-    boolean res = false;
-    if (userDO.login(account)) {
-      res = userRepository.addRedis(userDO);
+    UserDO userDO = dataBase.byAccountDataBase(account);
+    boolean res = userDO.login(account);
+    if (res) {
+      userDO.getAccount().setSessionId(httpSession.getId());
+      res = redis.addRedis(userDO);
       eventPublisher.publishEvent(new LoginEvent(userDO));
     }
     return res;

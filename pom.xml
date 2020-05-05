@@ -15,6 +15,7 @@
         <module>article</module>
         <module>material</module>
         <module>demo</module>
+        <module>dashboard</module>
     </modules>
 
     <properties>
@@ -74,6 +75,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.databene</groupId>
+                <artifactId>contiperf</artifactId>
+                <version>2.3.4</version>
             </dependency>
 
             <dependency>

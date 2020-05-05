@@ -14,3 +14,25 @@ eureka:
     lease-renewal-interval-in-seconds: 30
     #超过时间认为服务已死 默认90s
     lease-expiration-duration-in-seconds: 90
+
+#服务列表是否来自eureka
+ribbon:
+  eureka:
+    enabled: true
+
+user:
+  ribbon:
+    #不从eureka获取 指定服务列表
+    #listOfServer：
+    #请求连接超时时间
+    ConnectTimeout: 1000
+    #请求处理超时时间
+    ReadTimeout: 2000
+    #切换实例重试次数
+    OkToRetryOnAllOperations: true
+    #对当前实例重试次数，当eureka中找到服务，但服务连接不上将会重试
+    MaxAutoRetryiesNextServer: 2
+    #负载策略
+    NFLoadBalanceRuleClassName: com.netflix.loadbalancer.RandomRule
+    #接口检查
+    NFLoadBalancePingClassName: com.netflix.loadbalancer.PingUrl

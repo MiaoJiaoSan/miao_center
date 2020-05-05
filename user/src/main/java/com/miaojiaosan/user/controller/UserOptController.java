@@ -7,6 +7,7 @@ import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import com.miaojiaosan.user.service.UserOptService;
 import com.miaojiaosan.user.service.dto.LoginDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ public class UserOptController implements UserOptApi {
   @Resource
   private Mapper mapper;
 
+  @HystrixCommand
   @PostMapping("/registry")
   @Override
   public Result<Boolean> registry(@RequestBody RegistryOpt registryOpt) {
@@ -41,7 +43,7 @@ public class UserOptController implements UserOptApi {
     return result;
   }
 
-
+  @HystrixCommand
   @PostMapping("/login")
   @Override
   public Result<Boolean> login(@RequestBody LoginOpt loginOpt) {
