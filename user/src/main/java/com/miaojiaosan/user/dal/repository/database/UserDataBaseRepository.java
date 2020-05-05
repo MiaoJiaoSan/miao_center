@@ -45,6 +45,7 @@ public class UserDataBaseRepository {
 
 
 
+  @Transactional(rollbackFor = Exception.class, readOnly = true)
   public UserDO byAccountDataBase(Account account){
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
     UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());

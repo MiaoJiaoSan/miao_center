@@ -1,11 +1,9 @@
 package com.miaojiaosan.user.handler;
 
+import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.event.LoginEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author miaojiaosan
@@ -14,11 +12,11 @@ import javax.annotation.Resource;
 @Component
 public class LoginListener implements ApplicationListener<LoginEvent> {
 
-  @Resource
-  private RedisTemplate<String, Integer> redisTemplate;
+
 
   @Override
   public void onApplicationEvent(LoginEvent event) {
-    //TODO
+    UserDO userDO = (UserDO) event.getSource();
+
   }
 }

@@ -47,7 +47,7 @@ public class UserDO extends Base {
   private Account account;
 
   public void registry(){
-//    account.setValidate(1);
+    account.setValidate(1);
   }
 
   public boolean login(Account account){

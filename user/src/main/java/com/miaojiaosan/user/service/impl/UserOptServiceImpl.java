@@ -10,6 +10,7 @@ import com.miaojiaosan.user.service.UserOptService;
 import com.miaojiaosan.user.service.dto.LoginDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import org.dozer.Mapper;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +32,9 @@ public class UserOptServiceImpl implements UserOptService {
   private UserDataBaseRepository dataBase;
   @Resource(type = UserRedisRepository.class)
   private UserRedisRepository redis;
-
-
   @Resource
   private Mapper mapper;
-
+  //TODO 这里要改为cookie
   @Resource
   private HttpSession httpSession;
 
@@ -47,12 +46,8 @@ public class UserOptServiceImpl implements UserOptService {
     userDO.setEmail(account.getEmail());
     userDO.setPhone(account.getPhone());
     userDO.setAccount(account);
-    boolean rst = dataBase.addDataBase(userDO);
-    if (rst) {
-      userDO.registry();
-      eventPublisher.publishEvent(new RegistryEvent(userDO));
-    }
-    return rst;
+    userDO.registry();
+    return dataBase.addDataBase(userDO) && publishEvent(new RegistryEvent(userDO));
 
   }
 
@@ -60,14 +55,15 @@ public class UserOptServiceImpl implements UserOptService {
   public Boolean login(LoginDTO loginDTO) {
     Account account = mapper.map(loginDTO,Account.class);
     UserDO userDO = dataBase.byAccountDataBase(account);
-    boolean res = userDO.login(account);
-    if (res) {
-      userDO.getAccount().setSessionId(httpSession.getId());
-      res = redis.addRedis(userDO);
-      eventPublisher.publishEvent(new LoginEvent(userDO));
-    }
-    return res;
+    userDO.getAccount().setSessionId(httpSession.getId());
+    return userDO.login(account)
+      && redis.addRedis(userDO)
+      && publishEvent(new LoginEvent(userDO));
+
   }
 
-
+  private boolean publishEvent(ApplicationEvent applicationEvent){
+    eventPublisher.publishEvent(applicationEvent);
+    return true;
+  }
 }
