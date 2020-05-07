@@ -24,7 +24,7 @@ public class UserRedisRepository {
   public Boolean addRedis(UserDO userDO) {
     try {
       Account account = userDO.getAccount();
-      stringRedisTemplate.opsForValue().set(account.getSessionId(), objectMapper.writeValueAsString(userDO));
+      stringRedisTemplate.opsForValue().set(account.getToken(), objectMapper.writeValueAsString(userDO));
       return true;
     }catch (Exception e){
       return false;

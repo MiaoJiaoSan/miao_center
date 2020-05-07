@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户数据操作controller
@@ -30,6 +31,8 @@ public class UserOptController implements UserOptApi {
 
   @Resource
   private Mapper mapper;
+  @Resource
+  private HttpServletRequest httpServletRequest;
 
   @HystrixCommand
   @PostMapping("/registry")
@@ -43,7 +46,7 @@ public class UserOptController implements UserOptApi {
     return result;
   }
 
-  @HystrixCommand
+//  @HystrixCommand
   @PostMapping("/login")
   @Override
   public Result<Boolean> login(@RequestBody LoginOpt loginOpt) {

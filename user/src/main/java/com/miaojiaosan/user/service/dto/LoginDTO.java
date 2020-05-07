@@ -20,5 +20,5 @@ public class LoginDTO extends BaseDTO {
    */
   private String password;
 
-  private String code;
+  private String token;
 }

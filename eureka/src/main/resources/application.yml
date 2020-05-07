@@ -6,12 +6,13 @@ eureka:
     register-with-eureka: false
     #eureka互相注册
     service-url:
-      defaultZone: http://eureka:eureka@eureka:9000/eureka,http://eureka:eureka@duplicate:9001/eureka
+      defaultZone: http://eureka:eureka@eureka:9000/eureka
+#      ,http://eureka:eureka@duplicate:9001/eureka
   server:
     #设置清理的间隔时间，单位为毫秒 默认60s
-    eviction-interval-timer-in-ms: 60000
+    eviction-interval-timer-in-ms: 10
     #关闭保护模式
-#    enable-self-preservation: false
+    enable-self-preservation: false
 
 spring:
   security:

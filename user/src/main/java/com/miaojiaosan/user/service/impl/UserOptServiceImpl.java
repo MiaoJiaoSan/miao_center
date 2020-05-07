@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 /**
  * 用户数据操作service
@@ -34,9 +33,7 @@ public class UserOptServiceImpl implements UserOptService {
   private UserRedisRepository redis;
   @Resource
   private Mapper mapper;
-  //TODO 这里要改为cookie
-  @Resource
-  private HttpSession httpSession;
+
 
 
   @Override
@@ -55,7 +52,7 @@ public class UserOptServiceImpl implements UserOptService {
   public Boolean login(LoginDTO loginDTO) {
     Account account = mapper.map(loginDTO,Account.class);
     UserDO userDO = dataBase.byAccountDataBase(account);
-    userDO.getAccount().setSessionId(httpSession.getId());
+    userDO.getAccount().setToken(account.getToken());
     return userDO.login(account)
       && redis.addRedis(userDO)
       && publishEvent(new LoginEvent(userDO));

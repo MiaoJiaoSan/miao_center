@@ -44,7 +44,7 @@ public class Account extends Base {
    */
   private Integer validate;
   /**
-   * sessionId
+   * token
    */
-  private String sessionId;
+  private String token;
 }

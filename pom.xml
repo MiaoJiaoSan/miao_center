@@ -12,10 +12,10 @@
         <module>component</module>
         <module>user</module>
         <module>eureka</module>
-        <module>article</module>
         <module>material</module>
         <module>demo</module>
         <module>dashboard</module>
+        <module>configuration</module>
     </modules>
 
     <properties>

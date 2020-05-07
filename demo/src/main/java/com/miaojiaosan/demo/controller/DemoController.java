@@ -1,6 +1,10 @@
 package com.miaojiaosan.demo.controller;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miaojiaosan.common.Result;
+import com.miaojiaosan.user.api.UserOptApi;
+import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author miaojiaosan
@@ -34,6 +39,7 @@ public class DemoController {
 
 
   /**
+   * 为什么要服务隔离？防止一个接口占用大量资源导致服务不可用
    * HystrixCommand 隔离策略
    * 1.对全局变量cas SEMAPHORE
    * 2.线程池 THREAD 默认
@@ -43,6 +49,16 @@ public class DemoController {
    * <p>
    * execution.isolation.thread.timeoutInMilliseconds
    *
+   * 熔断
+   * 1.一定时间内
+   * HystrixPropertiesManager.METRICS_ROLLING_PERCENTILE_TIME_IN_MILLISECONDS 10000ms
+   * 2.请求N次
+   * HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD 20次
+   * 3.失败率达到阈值
+   * HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE 50%
+   * 熔断后休眠时间
+   * HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS 半开状态 接受请求如果失败 再变成开启状态
+   * hystrix开启熔断后,直接调用降级方法
    * @return true
    */
   @HystrixCommand(
@@ -136,4 +152,24 @@ public class DemoController {
     throw new UnsupportedOperationException();
   }
 
+
+  @GetMapping("/circuitBreaker")
+  @HystrixCommand
+  public Result<Boolean> circuitBreaker() {
+    int i = 1/0;
+    return Result.successful(true);
+  }
+
+
+  @Resource
+  private UserOptApi userOptApi;
+
+  @GetMapping("/feignLogin")
+  public Result<Boolean> feignLogin(){
+    LoginOpt loginOpt = new LoginOpt();
+    loginOpt.setAccount("demoData");
+    loginOpt.setPassword("demoData");
+    loginOpt.setToken(UUID.randomUUID().toString().replace("-",""));
+    return userOptApi.login(loginOpt);
+  }
 }

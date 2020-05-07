@@ -4,16 +4,17 @@ eureka:
       #开启健康检查
       enabled: true
     service-url:
-      defaultZone: http://eureka:eureka@eureka:9000/eureka,http://eureka:eureka@duplicate:9001/eureka
+      defaultZone: http://eureka:eureka@eureka:9000/eureka
+      #,http://eureka:eureka@duplicate:9001/eureka
   instance:
     #注册服务名
 #    instance-id: material
     #显示ip
     prefer-ip-address: true
     #心跳检查时间间隔 默认30s
-    lease-renewal-interval-in-seconds: 30
+    lease-renewal-interval-in-seconds: 2
     #超过时间认为服务已死 默认90s
-    lease-expiration-duration-in-seconds: 90
+    lease-expiration-duration-in-seconds: 5
 
 #服务列表是否来自eureka
 ribbon:
@@ -36,3 +37,23 @@ user:
     NFLoadBalanceRuleClassName: com.netflix.loadbalancer.RandomRule
     #接口检查
     NFLoadBalancePingClassName: com.netflix.loadbalancer.PingUrl
+
+hystrix:
+  command:
+    default:
+      metrics:
+        rollingStats:
+          #时间窗口
+          timeInMilliseconds: 10000
+        circuitBreaker:
+          #请求次数
+          requestVolumeThreshold: 5
+          #失败比率
+          errorThresholdPercentage: 50
+    circuitBreaker:
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+      circuitBreaker:
+        requestVolumeThreshold: 5
+        errorThresholdPercentage: 50

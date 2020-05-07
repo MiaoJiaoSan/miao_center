@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 登录入参
  * @author miaojiaosan
- * @date: 2020/4/25
+ * @date 2020/4/25
  */
 @Data
 public class LoginOpt {
@@ -14,5 +14,5 @@ public class LoginOpt {
 
   private String password;
 
-  private String code;
+  private String token;
 }
