@@ -16,6 +16,10 @@
                 <directory>src/main/resources</directory>
                 <!--替换properties/yml要加过滤-->
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/*.keystore</include>
+                    <include>**/*.yml</include>
+                </includes>
             </resource>
         </resources>
         <plugins>

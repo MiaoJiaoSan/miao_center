@@ -93,4 +93,21 @@ info:
   build:
     artifactId: ${project.artifactId}
     modelVersion: ${project.version}
+    eureka:
+  client:
+    healthcheck:
+      #开启健康检查
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:eureka@eureka:9000/eureka
+#      ,http://eureka:eureka@duplicate:9001/eureka
+  instance:
+    #注册服务名
+#    instance-id: user
+    #显示ip
+    prefer-ip-address: true
+    #心跳检查时间间隔 默认30s
+    lease-renewal-interval-in-seconds: 2
+    #超过时间认为服务已死 默认90s
+    lease-expiration-duration-in-seconds: 5
 

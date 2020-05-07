@@ -1,0 +1,20 @@
+encrypt:
+  key-store:
+    secret: Magickey1.1
+    password: Magickey1.1
+    location: configuration.keystore
+    alias: configuration
+
+server:
+  port: 9020
+
+spring:
+  application:
+    name: configuration
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configuration

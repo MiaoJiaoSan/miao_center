@@ -1,34 +1,25 @@
-server:
-  port: 9020
 
-spring:
-  application:
-    name: configuration
-  profiles:
-    active: native
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/configuration
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka:eureka@eureka:9000/eureka
-#      ,http://eureka:eureka@duplicate:9001/eureka
-  instance:
-    #注册服务名
-    #    instance-id: configuration
-    #显示ip
-    prefer-ip-address: true
-    #心跳检查时间间隔 默认30s
-    lease-renewal-interval-in-seconds: 2
-    #超过时间认为服务已死 默认90s
-    lease-expiration-duration-in-seconds: 5
 
-management:
-  #默认健康检查全部禁用
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+
+##eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka:eureka@eureka:9000/eureka
+##      ,http://eureka:eureka@duplicate:9001/eureka
+#  instance:
+#    #注册服务名
+#    #    instance-id: configuration
+#    #显示ip
+#    prefer-ip-address: true
+#    #心跳检查时间间隔 默认30s
+#    lease-renewal-interval-in-seconds: 2
+#    #超过时间认为服务已死 默认90s
+#    lease-expiration-duration-in-seconds: 5
+
+#management:
+#  #默认健康检查全部禁用
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+
