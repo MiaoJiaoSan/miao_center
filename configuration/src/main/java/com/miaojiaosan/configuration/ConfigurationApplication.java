@@ -8,6 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 /**
  * @author miaojiaosan
  * @date 2020/5/6
+ * keytool -genkeypair -alias configuration -keyalg RSA -keystore configuration.jks -keypass miaojiaosan  -storepass miaojiaosan
  */
 @SpringBootApplication
 @EnableConfigServer

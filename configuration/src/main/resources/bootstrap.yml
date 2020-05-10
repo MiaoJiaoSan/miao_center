@@ -1,8 +1,8 @@
 encrypt:
   key-store:
-    secret: Magickey1.1
-    password: Magickey1.1
-    location: configuration.keystore
+    secret: miaojiaosan
+    password: miaojiaosan
+    location: classpath:/configuration.jks
     alias: configuration
 
 server:

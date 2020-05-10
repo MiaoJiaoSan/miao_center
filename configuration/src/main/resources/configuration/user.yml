@@ -21,7 +21,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      url: jdbc:mysql://www.immortal.net.cn:3306/miaojiaosan?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      url: '{cipher}AQAWXicDb6gT+r8RcUriJVt5K22s3ywjY6UjP68hQ6XACrQyWBRX5EqjKhjukyWwfsFgKluxwBQFWF3/mmgNWh9ruUzGRe8hx7A8rWUhEi9bzFNOQp/ekVXh+hfnthsf1RSlIDr6DHYPEBhEpnpIU08IUTmwo7CB4cRbENSW1zat+t+FjQIsRaAvqERXMCXF+YeTCJvnFp1LZ3RmxcZDXKiWG6FHxn3gRgbF60REamLZgtcxrdlkUv0bFrTKhE/kca6xSFcIUJ5dVrQ9TkVaeB65bc54WXgWM+TCCcFM5Qjcq+M07RT8RaqhU2OsRdGkplJ4SLPshW1cNo5h85P1vIO+kRMcsJgKzYx+FqLIRGHg4YMiJZEUX7ySp7p4GP45pC8hfn3qnYtUyzBK+Vsxty3udq1hVNVl5jqI1AgNMvVeVe4EWEHMZKAVCh9gQKVT48Hhwi+547YUjj6ELeCdkKbiOE1SSUvrI1en76b9NqeRlw7GmeN2TDEDYLI6ZdvCLng='
       username: root
       password: immortal
       # 下面为连接池的补充设置，应用到上面所有数据源中
