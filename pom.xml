@@ -25,7 +25,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <miao.version>1.0-SNAPSHOT</miao.version>
-        <boot.version>2.2.1.RELEASE</boot.version>
+        <boot.version>2.2.2.RELEASE</boot.version>
     </properties>
 
     <dependencyManagement>

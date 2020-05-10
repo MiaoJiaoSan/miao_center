@@ -12,11 +12,11 @@ spring:
   application:
     name: user
   redis:
-    host: www.miaojiaosan.com
-    port: 9736
+    host: '{cipher}AQBGtWWt0/cyG03MNGM6Fbkwm4xN48viAq0i/oA5kz5P4Z/rSs9RMbDqbt14brnlM6oQhaDXJX6UM2fcKXbd7KBrGTniOeOgOkfch9wY8Pp5Xgwdq8rsGbXac3Fr8RvZIZLhu+F0qOhPcXvskuFRBVLFzTgI1XeVpFMrr0Jgequa+wIt9sQzsb4GJwo3/4Hx4mAarBL1eNgKqUDnGqmY0kqzBe9bOD0AySkjIv3QHW1Qh+d39IuAN0ySHxJREjcfzohCoTUSr+3A6uu9RLQIL0Ie9afmPk1GolPpm+iZJqSKNupvzo6oP6KEjwu7MJ8WlOr7nRF85WFLfpid79enwq2tdeGzSWtHIHSF2kuZYTLMpEAEHHtFYOlWVC44SxJnkoBhUDTO/IiV4J3gJDgJnVx3'
+    port: '{cipher}AQA0F1tlDZaxceOEIFOuou9zeHz8dDpZlUFW/VzRos3B11r7Xtnkh4uFcJz4bExmWqaQ18NaA0Ia02bTh5aENKmqyE0VaofG7vS8x1JDHlS88pRiRMXNBCuc+NITbTkTTF75gOIF2wwUL/OcBrrLtgutVeiGTvfy13YcIurSGUFYHuQ2GFOywyQi3w/O5vpw7KqvlGzKpZBWEk1X2/V1p2pFnQKdybSg7aclwb24J0G7K03BpUHbv/dYg1fPaPUBW4oQ6VbNnL0FocL+TrTLc0F07jX94tWnCkYBTNb7Zsragoit/HnLLREYgQSjn64TUs+cCXv/lAMJZknis/bha03HO+K2AeSWAYu/2ziI3bvF2N3nIx44dz2pM0Ic5TOX6ps='
     database: 0
     timeout: 3000ms
-    password: redis
+    password: '{cipher}AQAEJIScqQgXHqd12OZ8tZZFDwVR2SMdA+CzPT2MTnZaj1Nxc3RDnSmZi1EwIQvVOO4JHnNDqwYYobdJ7aKGwPJ972rUUh0pWpDiEhE3cL6kUgaF76yMOKcJnPX+GUc/Qy3AUMZT0npzz/6SxYQWYCgiaWJJKH89ElE+Hrep+57W/nXvC2wKxfJAaC8VNCTN9jdbo9tLc/Dh3QVtLbgg4RCdcyS0SpEu04yqOlm27MJCDk2H3+JdoSohsKBV8XFX8ScA2dlnlyQIk0jyihc3WlrZpDP3SOH2Xc5FaFToxwQUz/bq5rEgLjrXBtuB6IHpZxA+cu1iLcvHf1q+4VmC+xATSe3R2W27Efk9/vFgZAzxecPUQ1IFwv78wfHWh8gyAsQ='
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

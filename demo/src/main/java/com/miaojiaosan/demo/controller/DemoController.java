@@ -1,13 +1,15 @@
 package com.miaojiaosan.demo.controller;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miaojiaosan.common.Result;
 import com.miaojiaosan.user.api.UserOptApi;
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import java.util.UUID;
  * @author miaojiaosan
  * @date 2020/5/5
  */
+@RefreshScope
 @RestController
 @RequestMapping("/demo")
 public class DemoController {
@@ -171,5 +174,18 @@ public class DemoController {
     loginOpt.setPassword("demoData");
     loginOpt.setToken(UUID.randomUUID().toString().replace("-",""));
     return userOptApi.login(loginOpt);
+  }
+
+  @Value("${spring.application.name}")
+  private String applicationName;
+
+  @Autowired
+  private Environment environment;
+
+  @GetMapping("/applicationName")
+  public Result<String> getApplicationName(){
+    System.out.println("hash code is "+environment.getProperty("spring.application.name"));
+    System.out.println("hash code is "+this.hashCode());
+    return Result.successful(applicationName);
   }
 }
