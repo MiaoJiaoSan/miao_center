@@ -1,8 +1,6 @@
 package com.miaojiaosan.user.service.dto;
 
-import com.miaojiaosan.common.service.dto.BaseDTO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
