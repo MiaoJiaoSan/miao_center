@@ -1,16 +1,15 @@
 package com.miaojiaosan.user.vo;
 
-import com.miaojiaosan.common.vo.BaseVO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * @author miaojiaosan
  * @date 2020/4/25
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class AccountVO extends BaseVO {
+public class AccountVO {
 
   /**
    * 主键
@@ -44,4 +43,16 @@ public class AccountVO extends BaseVO {
    * 用户id
    */
   private Long userId;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Date modifyTime;
 }

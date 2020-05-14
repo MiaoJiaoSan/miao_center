@@ -1,8 +1,6 @@
 package com.miaojiaosan.matereial.domain.data;
 
-import com.miaojiaosan.common.domain.data.Base;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 作者
@@ -10,8 +8,7 @@ import lombok.EqualsAndHashCode;
  * @date 2020/5/4
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Author extends Base {
+public class Author {
   /**
    * 账号id
    */
@@ -20,5 +17,17 @@ public class Author extends Base {
    * 评论人
    */
   private String nickName;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Long modifyTime;
 
 }

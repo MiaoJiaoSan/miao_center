@@ -17,9 +17,9 @@ spring:
     config:
       server:
         native:
-          search-locations: /home/miaojiaosan/workspace/configuration
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
+          search-locations: classpath:/configuration
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: admin
+#    password: admin

@@ -20,6 +20,7 @@ public class Result<T> {
   private Result(boolean result, T value) {
     this.result = result;
     this.value = value;
+    this.msg = "";
   }
 
   private Result(boolean result, String msg, T value) {

@@ -1,16 +1,13 @@
 package com.miaojiaosan.user.domain.data;
 
-import com.miaojiaosan.common.domain.data.Base;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author miaojiaosan
  * @date 2020/4/25
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Account extends Base {
+public class Account {
   /**
    * 主键
    */
@@ -47,4 +44,16 @@ public class Account extends Base {
    * token
    */
   private String token;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Long modifyTime;
 }

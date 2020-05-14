@@ -1,16 +1,15 @@
 package com.miaojiaosan.user.service.dto;
 
-import com.miaojiaosan.common.service.dto.BaseDTO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * @author miaojiaosan
  * @date 2020/5/4
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class LoginDTO extends BaseDTO {
+public class LoginDTO {
   /**
    * 账号
    */
@@ -19,6 +18,16 @@ public class LoginDTO extends BaseDTO {
    * 密码
    */
   private String password;
-
-  private String token;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Date modifyTime;
 }

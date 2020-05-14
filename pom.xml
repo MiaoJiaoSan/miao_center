@@ -16,6 +16,7 @@
         <module>demo</module>
         <module>dashboard</module>
         <module>configuration</module>
+        <module>zuul</module>
     </modules>
 
     <properties>

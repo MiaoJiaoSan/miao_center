@@ -1,16 +1,15 @@
 package com.miaojiaosan.user.service.dto;
 
-import com.miaojiaosan.common.service.dto.BaseDTO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * @author miaojiaosan
  * @date 2020/5/4
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class RegistryDTO extends BaseDTO {
+public class RegistryDTO {
   /**
    * 账号
    */
@@ -31,4 +30,16 @@ public class RegistryDTO extends BaseDTO {
    * 电话
    */
   private String phone;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Date modifyTime;
 }

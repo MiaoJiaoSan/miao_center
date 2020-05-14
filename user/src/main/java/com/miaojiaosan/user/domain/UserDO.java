@@ -10,8 +10,7 @@ import lombok.EqualsAndHashCode;
  * @date 2020/4/25
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class UserDO extends Base {
+public class UserDO {
 
   /**
    * 主键
@@ -45,6 +44,18 @@ public class UserDO extends Base {
    * 账号
    */
   private Account account;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Long modifyTime;
 
   public void registry(){
     account.setValidate(1);

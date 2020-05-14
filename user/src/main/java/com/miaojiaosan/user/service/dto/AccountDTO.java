@@ -4,13 +4,14 @@ import com.miaojiaosan.common.service.dto.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /**
  * @author miaojiaosan
  * @date 2020/5/4
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class AccountDTO extends BaseDTO {
+public class AccountDTO {
   /**
    * 主键
    */
@@ -43,5 +44,17 @@ public class AccountDTO extends BaseDTO {
    * 用户id
    */
   private Long userId;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Date modifyTime;
 }
 

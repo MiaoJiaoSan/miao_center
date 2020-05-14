@@ -1,8 +1,8 @@
 package com.miaojiaosan.user.dal.dao;
 
-import com.miaojiaosan.common.dal.dao.BaseDAO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 用户账号数据访问对象
@@ -10,8 +10,7 @@ import lombok.EqualsAndHashCode;
  * @date 2020/4/25
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class UserAccountDAO extends BaseDAO {
+public class UserAccountDAO {
   /**
    * 主键
    */
@@ -48,6 +47,18 @@ public class UserAccountDAO extends BaseDAO {
    * 用户id
    */
   private Long userId;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Date modifyTime;
 
 }
 

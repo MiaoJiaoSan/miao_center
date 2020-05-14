@@ -1,0 +1,69 @@
+server:
+  port: 8080
+
+
+eureka:
+  client:
+    healthcheck:
+      #开启健康检查
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:eureka@eureka:9000/eureka
+      #,http://eureka:eureka@duplicate:9001/eureka
+    #当前服务是否要注册到eureka中,不需要
+    register-with-eureka: false
+  instance:
+    #注册服务名
+    #    instance-id: zuul
+    #显示ip
+    prefer-ip-address: true
+    #心跳检查时间间隔 默认30s
+    lease-renewal-interval-in-seconds: 2
+    #超过时间认为服务已死 默认90s
+    lease-expiration-duration-in-seconds: 5
+
+zuul:
+#  全局配置拦截
+#  sensitive-headers: Cookie,Set-Cookie,Authorization
+  sensitive-headers:
+  routes:
+    demo:
+      path: /demo-proxy/**
+#      url: http://localhost:7090
+      service-id: demo
+      #指定传输头 Cookie,Set-Cookie,Authorization 默认是过滤掉的
+#      sensitive-headers: Cookie,Set-Cookie,Authorization
+#       关闭服务重试
+#      retryable: false
+    user: /user-proxy/**
+    material: /material-proxy/**
+    #忽略其他服务 全部由网关转发
+  ignored-services: '*'
+#  添加host头信息标识最初的客户端请求地质
+  add-host-header: true
+#  默认添加 X-Forwarded-* 头
+  add-proxy-headers: true
+# 全局关闭重试
+  retryable: false
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 2000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 100000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name:  zuul

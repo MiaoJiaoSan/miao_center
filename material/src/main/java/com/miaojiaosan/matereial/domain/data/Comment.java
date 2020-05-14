@@ -1,8 +1,6 @@
 package com.miaojiaosan.matereial.domain.data;
 
-import com.miaojiaosan.common.domain.data.Base;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,8 +10,7 @@ import java.util.Date;
  * @date 2020/5/4
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Comment extends Base {
+public class Comment{
 
   /**
    * 素材id
@@ -34,4 +31,16 @@ public class Comment extends Base {
    * 发布时间
    */
   private Date releaseDate;
+  /**
+   * 版本
+   */
+  private Long version;
+  /**
+   *  操作人
+   */
+  private Long modify;
+  /**
+   * 操作时间
+   */
+  private Long modifyTime;
 }

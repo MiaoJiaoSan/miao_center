@@ -1,8 +1,6 @@
 package com.miaojiaosan.user.dal.dao;
 
-import com.miaojiaosan.common.dal.dao.BaseDAO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,8 +10,7 @@ import java.util.Date;
  * @date 2020/05/05
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class UserPersonDAO extends BaseDAO {
+public class UserPersonDAO{
     /**
      * 主键
      */
@@ -55,4 +52,16 @@ public class UserPersonDAO extends BaseDAO {
      * 电话
      */
     private String phone;
+    /**
+     * 版本
+     */
+    private Long version;
+    /**
+     *  操作人
+     */
+    private Long modify;
+    /**
+     * 操作时间
+     */
+    private Date modifyTime;
 }

@@ -38,6 +38,7 @@ user:
     #接口检查
     NFLoadBalancePingClassName: com.netflix.loadbalancer.PingUrl
 
+#熔断
 hystrix:
   command:
     default:
