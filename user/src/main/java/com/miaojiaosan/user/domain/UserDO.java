@@ -1,9 +1,7 @@
 package com.miaojiaosan.user.domain;
 
-import com.miaojiaosan.common.domain.data.Base;
 import com.miaojiaosan.user.domain.data.Account;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author miaojiaosan
@@ -58,7 +56,7 @@ public class UserDO {
   private Long modifyTime;
 
   public void registry(){
-    account.setValidate(1);
+//    account.setValidate(1);
   }
 
   public boolean login(Account account){

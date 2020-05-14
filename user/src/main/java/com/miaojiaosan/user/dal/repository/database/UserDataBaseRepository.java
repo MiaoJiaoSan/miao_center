@@ -9,7 +9,6 @@ import com.miaojiaosan.user.domain.data.Account;
 import org.dozer.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -27,7 +26,6 @@ public class UserDataBaseRepository {
   @Resource
   private Mapper mapper;
 
-  @Transactional(rollbackFor = Exception.class)
   public Boolean addDataBase(UserDO userDO){
     UserPersonDAO userPersonDAO = new UserPersonDAO();
     BeanUtils.copyProperties(userDO, userPersonDAO);
@@ -45,8 +43,7 @@ public class UserDataBaseRepository {
 
 
 
-  @Transactional(rollbackFor = Exception.class, readOnly = true)
-  public UserDO byAccountDataBase(Account account){
+  public UserDO byAccount(Account account){
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
     UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
     UserDO userDO = new UserDO();

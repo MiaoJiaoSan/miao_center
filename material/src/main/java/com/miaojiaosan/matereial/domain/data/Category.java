@@ -1,8 +1,6 @@
 package com.miaojiaosan.matereial.domain.data;
 
-import com.miaojiaosan.common.domain.data.Base;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 分类

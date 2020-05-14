@@ -1,7 +1,6 @@
 package com.miaojiaosan.matereial.domain.data;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 评论人
