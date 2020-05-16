@@ -30,7 +30,7 @@ public class AccountQryController implements AccountQryApi {
   private Mapper mapper;
 
 
-  @HystrixCommand
+  
   @GetMapping("/id/{id}")
   @Override
   public Result<AccountVO> byId(@PathVariable("id") Long id){
@@ -39,7 +39,7 @@ public class AccountQryController implements AccountQryApi {
     return Result.successful(accountVO);
   }
 
-  @HystrixCommand
+  
   @GetMapping("/account/{account}")
   @Override
   public Result<AccountVO> byAccount(@PathVariable("account") String account){
@@ -48,7 +48,7 @@ public class AccountQryController implements AccountQryApi {
     return Result.successful(accountVO);
   }
 
-  @HystrixCommand
+  
   @GetMapping("/email/{email}")
   @Override
   public Result<AccountVO> byEmail(@PathVariable("email") String email) {
@@ -57,7 +57,7 @@ public class AccountQryController implements AccountQryApi {
     return Result.successful(accountVO);
   }
 
-  @HystrixCommand
+  
   @GetMapping("/phone/{phone}")
   @Override
   public Result<AccountVO> byPhone(@PathVariable("phone") String phone) {

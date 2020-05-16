@@ -1,7 +1,12 @@
 package com.miaojiaosan.user.domain;
 
+import com.miaojiaosan.common.enums.RoleCode;
 import com.miaojiaosan.user.domain.data.Account;
+import com.miaojiaosan.user.domain.data.Role;
 import lombok.Data;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author miaojiaosan
@@ -43,6 +48,10 @@ public class UserDO {
    */
   private Account account;
   /**
+   * 角色
+   */
+  private List<Role> roles;
+  /**
    * 版本
    */
   private Long version;
@@ -56,11 +65,12 @@ public class UserDO {
   private Long modifyTime;
 
   public void registry(){
-//    account.setValidate(1);
+
   }
 
   public boolean login(Account account){
     return this.account.getPassword().equals(account.getPassword());
   }
+
 }
 

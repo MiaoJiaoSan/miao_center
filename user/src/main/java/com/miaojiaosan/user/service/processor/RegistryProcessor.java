@@ -3,6 +3,7 @@ package com.miaojiaosan.user.service.processor;
 import com.miaojiaosan.user.dal.repository.database.UserDataBaseRepository;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.data.Account;
+import com.miaojiaosan.user.domain.data.Role;
 import com.miaojiaosan.user.domain.event.RegistryEvent;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import org.dozer.Mapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 
 /**
  *
@@ -31,10 +33,12 @@ public class RegistryProcessor {
     @Transactional(readOnly =  true, rollbackFor = Exception.class)
     public UserDO prepare(RegistryDTO registryDTO){
         Account account = mapper.map(registryDTO,Account.class);
+        Role normal = db.normal();
         UserDO userDO = new UserDO();
         userDO.setEmail(account.getEmail());
         userDO.setPhone(account.getPhone());
         userDO.setAccount(account);
+        userDO.setRoles(Collections.singletonList(normal));
         return userDO;
     }
 

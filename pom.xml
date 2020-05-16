@@ -17,6 +17,7 @@
         <module>dashboard</module>
         <module>configuration</module>
         <module>zuul</module>
+        <module>admin</module>
     </modules>
 
     <properties>

@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/qry")
 public class UserQryController implements UserQryApi {
 
-  @HystrixCommand
+  
   @GetMapping("/id/{id}")
   @Override
   public Result<UserVO> byId(@PathVariable("id") Long id){
     return Result.empty();
   }
 
-  @HystrixCommand
+  
   @GetMapping("/account/{account}")
   @Override
   public Result<UserVO> byAccount(@PathVariable("account") String account){

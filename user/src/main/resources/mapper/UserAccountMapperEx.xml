@@ -74,7 +74,7 @@
                 #{modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="userId != null">
-                #{userId,jdbcType=BIGINT}
+                #{userId,jdbcType=BIGINT},
             </if>
             from dual
             where not exists(select 1 from user_account where account = #{account,jdbcType=VARCHAR} )

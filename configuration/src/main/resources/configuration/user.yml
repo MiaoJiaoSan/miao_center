@@ -78,9 +78,9 @@ pagehelper:
 
 management:
   #默认健康检查全部禁用
-  health:
-    defaults:
-      enabled: false
+#  health:
+#    defaults:
+#      enabled: false
   endpoints:
     web:
       exposure:
@@ -111,3 +111,14 @@ info:
     #超过时间认为服务已死 默认90s
     lease-expiration-duration-in-seconds: 5
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          enabled: true
+          semaphore:
+            maxConcurrentRequests: 10
+          thread:
+            timeoutInMilliseconds: 1000

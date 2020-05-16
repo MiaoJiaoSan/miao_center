@@ -19,7 +19,7 @@ public class MaterialOptController implements MaterialOptApi {
    * 发布素材
    * @return value==true 成功
   */
-  @HystrixCommand
+  
   @PostMapping("/release")
   @Override
   public Result<Boolean> release() {

@@ -34,7 +34,7 @@ public class UserOptController implements UserOptApi {
   @Resource
   private HttpServletRequest httpServletRequest;
 
-  @HystrixCommand
+  
   @PostMapping("/registry")
   @Override
   public Result<Boolean> registry(@RequestBody RegistryOpt registryOpt) {
@@ -46,7 +46,7 @@ public class UserOptController implements UserOptApi {
     return result;
   }
 
-//  @HystrixCommand
+//  
   @PostMapping("/login")
   @Override
   public Result<Boolean> login(@RequestBody LoginOpt loginOpt) {

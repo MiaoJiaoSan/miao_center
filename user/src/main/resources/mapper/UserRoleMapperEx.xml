@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.miaojiaosan.user.dal.mapperex.UserRoleMapperEx" >
+  <resultMap id="BaseResultMap" type="com.miaojiaosan.user.dal.dao.UserRoleDAO" extends="com.miaojiaosan.user.dal.mapper.UserRoleMapper.BaseResultMap" />
+
+  <select id="byCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, name, code, version, modify, modify_time
+    from user_role where code = #{code}
+  </select>
+
+  <select id="byIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select id, name, code, version, modify, modify_time
+        from user_role where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+  </select>
+</mapper>

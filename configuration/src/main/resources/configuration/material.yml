@@ -56,10 +56,23 @@ spring:
 
 management:
   #默认健康检查全部禁用
-  health:
-    defaults:
-      enabled: false
+#  health:
+#    defaults:
+#      enabled: false
   endpoints:
     web:
       exposure:
         include: '*'
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          enabled: true
+          semaphore:
+            maxConcurrentRequests: 10
+          thread:
+            timeoutInMilliseconds: 1000
+
