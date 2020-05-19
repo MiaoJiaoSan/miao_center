@@ -18,6 +18,7 @@
         <module>configuration</module>
         <module>zuul</module>
         <module>admin</module>
+        <module>jwt</module>
     </modules>
 
     <properties>

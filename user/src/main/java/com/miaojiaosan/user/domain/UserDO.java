@@ -68,8 +68,8 @@ public class UserDO {
 
   }
 
-  public boolean login(Account account){
-    return this.account.getPassword().equals(account.getPassword());
+  public boolean login(String password){
+    return this.account.getPassword().equals(password);
   }
 
 }

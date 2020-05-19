@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: jwt
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.immortal.net.cn:3306/miaojiaosan?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: immortal
+  main:
+    allow-bean-definition-overriding: true
+#  security:
+#    user:
+#      name: jwt
+#      password: jwt
+
+server:
+  port: 3031
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:eureka@localhost:9000/eureka/
+
+
+logging:
+  level:
+    root: debug
+    org:
+      springframework:
+        security: debug

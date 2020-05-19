@@ -37,8 +37,7 @@ public class PreFilter extends ZuulFilter {
   public boolean shouldFilter() {
     //请求上下文
     RequestContext cxt = RequestContext.getCurrentContext();
-    cxt.sendZuulResponse();
-    return false;
+    return cxt.sendZuulResponse();
   }
 
   @Override
@@ -47,7 +46,7 @@ public class PreFilter extends ZuulFilter {
     RequestContext cxt = RequestContext.getCurrentContext();
     //获取request
     HttpServletRequest request = cxt.getRequest();
-
+    System.out.println("=========="+request.getRequestURL()+"=========");
     return null;
   }
 }

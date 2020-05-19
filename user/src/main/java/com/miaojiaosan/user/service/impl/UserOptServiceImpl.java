@@ -38,7 +38,7 @@ public class UserOptServiceImpl implements UserOptService {
   @Override
   public Boolean login(LoginDTO loginDTO) {
     UserDO userDO = loginProcessor.prepare(loginDTO);
-    boolean loginRst = userDO.login(userDO.getAccount());
+    boolean loginRst = userDO.login(loginDTO.getPassword());
     Boolean rst = loginProcessor.process(userDO);
     loginProcessor.completable(userDO);
     return loginRst&&rst;

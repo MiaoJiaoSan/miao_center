@@ -37,6 +37,7 @@ zuul:
 #      retryable: false
     user: /user-proxy/**
     material: /material-proxy/**
+    jwt: /jwt-proxy/**
     #忽略其他服务 全部由网关转发
   ignored-services: '*'
 #  添加host头信息标识最初的客户端请求地质
@@ -55,8 +56,12 @@ hystrix:
     default:
       execution:
         isolation:
+          strategy: SEMAPHORE
+          enabled: true
+          semaphore:
+            maxConcurrentRequests: 10
           thread:
-            timeoutInMilliseconds: 100000
+            timeoutInMilliseconds: 1000
 
 
 management:
@@ -67,3 +72,6 @@ management:
 spring:
   application:
     name:  zuul
+
+
+
