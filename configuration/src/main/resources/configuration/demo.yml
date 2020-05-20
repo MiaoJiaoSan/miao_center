@@ -13,10 +13,10 @@ spring:
     database: 0
     timeout: 3000ms
     password: '{cipher}AQAEJIScqQgXHqd12OZ8tZZFDwVR2SMdA+CzPT2MTnZaj1Nxc3RDnSmZi1EwIQvVOO4JHnNDqwYYobdJ7aKGwPJ972rUUh0pWpDiEhE3cL6kUgaF76yMOKcJnPX+GUc/Qy3AUMZT0npzz/6SxYQWYCgiaWJJKH89ElE+Hrep+57W/nXvC2wKxfJAaC8VNCTN9jdbo9tLc/Dh3QVtLbgg4RCdcyS0SpEu04yqOlm27MJCDk2H3+JdoSohsKBV8XFX8ScA2dlnlyQIk0jyihc3WlrZpDP3SOH2Xc5FaFToxwQUz/bq5rEgLjrXBtuB6IHpZxA+cu1iLcvHf1q+4VmC+xATSe3R2W27Efk9/vFgZAzxecPUQ1IFwv78wfHWh8gyAsQ='
-  security:
-    user:
-      name: demo
-      password: demo
+#  security:
+#    user:
+#      name: demo
+#      password: demo
   profiles:
     active: eureka
   application:

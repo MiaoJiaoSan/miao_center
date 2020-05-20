@@ -26,8 +26,8 @@ security:
       jwt:
         key-uri: http://localhost:8080/jwt-proxy/oauth/token_key
     client:
-      client-id: demo
-      client-secret: demo
+#      client-id: demo
+#      client-secret: demo
       access-token-uri: http://zuul/jwt-proxy/oauth/token
       grant-type: password
       scope: all
