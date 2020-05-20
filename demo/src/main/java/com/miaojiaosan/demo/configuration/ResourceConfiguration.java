@@ -9,6 +9,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.annotation.Resource;
 
+/**
+ * @author miaojiaosan
+ */
 @SpringBootConfiguration
 @EnableResourceServer
 public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
@@ -18,8 +21,8 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
   private TokenStore tokenStore;
   /**
    * 需要拦截的路径
-   * @param http
-   * @throws Exception
+   * @param http {@link HttpSecurity}
+   * @throws Exception 异常
    */
   @Override
   public void configure(HttpSecurity http) throws Exception {
@@ -33,7 +36,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
 
 
   @Override
-  public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-    resources.tokenStore(tokenStore).resourceId("demo");
+  public void configure(ResourceServerSecurityConfigurer resources) {
+    resources.tokenStore(tokenStore);
   }
 }

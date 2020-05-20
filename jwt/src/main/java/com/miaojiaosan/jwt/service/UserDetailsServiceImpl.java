@@ -28,13 +28,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param accountStr  账号
      * @return 返回账号信息
-     * @throws UsernameNotFoundException
+     * @throws UsernameNotFoundException 异常
      */
     @Override
     public UserDetails loadUserByUsername(String accountStr) throws UsernameNotFoundException {
         Account account = jdbcTemplate.queryForObject(USER, new BeanPropertyRowMapper<>(Account.class),accountStr);
         assert account != null;
-        account.setRoles(jdbcTemplate.queryForList(ROLE, new Object[]{account.getId()} ,Role.class));
+        account.setRoles(jdbcTemplate.query(ROLE, new Object[]{account.getId()} , (rs, rowNum) -> {
+            Role role = new Role();
+            role.setId(rs.getLong("id"));
+            role.setName(rs.getString("name"));
+            role.setCode(rs.getString("code"));
+            return role;
+        }));
         return account;
     }
 }
