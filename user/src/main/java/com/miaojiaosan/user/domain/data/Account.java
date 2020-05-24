@@ -25,10 +25,6 @@ public class Account {
    */
   private String nickname;
   /**
-   *
-   */
-  private String picture;
-  /**
    * 邮箱
    */
   private String email;
@@ -37,13 +33,17 @@ public class Account {
    */
   private String phone;
   /**
-   * 实名
+   *
    */
-  private Integer validate;
+  private String picture;
+  /**
+   * refreshToken
+   */
+  private String refreshToken;
   /**
    * token
    */
-  private String token;
+  private String accessToken;
   /**
    * 版本
    */
@@ -56,4 +56,5 @@ public class Account {
    * 操作时间
    */
   private Long modifyTime;
+
 }

@@ -1,7 +1,7 @@
 package com.miaojiaosan.demo.controller;
 
 import com.miaojiaosan.common.Result;
-import com.miaojiaosan.user.api.UserOptApi;
+import com.miaojiaosan.user.api.AccountOptApi;
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -165,7 +165,7 @@ public class DemoController {
 
 
   @Resource
-  private UserOptApi userOptApi;
+  private AccountOptApi accountOptApi;
 
   @GetMapping("/feignLogin")
   public Result<Boolean> feignLogin(){
@@ -173,7 +173,7 @@ public class DemoController {
     loginOpt.setAccount("demoData");
     loginOpt.setPassword("demoData");
     loginOpt.setToken(UUID.randomUUID().toString().replace("-",""));
-    return userOptApi.login(loginOpt);
+    return accountOptApi.login(loginOpt);
   }
 
   @Value("${spring.application.name}")

@@ -19,7 +19,14 @@ public interface UserAccountMapperEx extends UserAccountMapper {
    */
   @Override
   int insert(UserAccountDAO record);
-
+  /**
+   * 修改账号
+   */
+  int modify(UserAccountDAO record);
+  /**
+   * refreshToken
+   */
+  int refreshToken(UserAccountDAO record);
   /**
    * 根据账号
    * @param account 账号

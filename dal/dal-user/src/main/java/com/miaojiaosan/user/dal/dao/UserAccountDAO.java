@@ -16,6 +16,10 @@ public class UserAccountDAO {
    */
   private Long id;
   /**
+   * 用户id
+   */
+  private Long userId;
+  /**
    * 账号
    */
   private String account;
@@ -40,13 +44,9 @@ public class UserAccountDAO {
    */
   private String phone;
   /**
-   * 验证
+   * 刷新token
    */
-  private Integer validate;
-  /**
-   * 用户id
-   */
-  private Long userId;
+  private String refreshToken;
   /**
    * 版本
    */

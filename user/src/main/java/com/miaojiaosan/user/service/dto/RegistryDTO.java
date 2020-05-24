@@ -31,15 +31,8 @@ public class RegistryDTO {
    */
   private String phone;
   /**
-   * 版本
+   * token
    */
-  private Long version;
-  /**
-   *  操作人
-   */
-  private Long modify;
-  /**
-   * 操作时间
-   */
-  private Date modifyTime;
+  private String accessToken;
+
 }

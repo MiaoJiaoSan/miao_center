@@ -1,10 +1,8 @@
 package com.miaojiaosan.user.service.processor;
 
-import com.miaojiaosan.user.dal.repository.database.UserDataBaseRepository;
-import com.miaojiaosan.user.dal.repository.redis.UserRedisRepository;
 import com.miaojiaosan.user.domain.UserDO;
-import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.event.LoginEvent;
+import com.miaojiaosan.user.repository.UserRepository;
 import com.miaojiaosan.user.service.dto.LoginDTO;
 import org.dozer.Mapper;
 import org.springframework.context.ApplicationEventPublisher;
@@ -21,10 +19,9 @@ import javax.annotation.Resource;
 @Component
 public class LoginProcessor {
 
-    @Resource(type = UserRedisRepository.class)
-    private UserRedisRepository redis;
-    @Resource(type = UserDataBaseRepository.class)
-    private UserDataBaseRepository db;
+    @Resource
+    private UserRepository userRepository;
+
     @Resource
     private Mapper mapper;
     @Resource
@@ -32,14 +29,12 @@ public class LoginProcessor {
 
     @Transactional(readOnly =  true, rollbackFor = Exception.class)
     public UserDO prepare(LoginDTO loginDTO){
-        Account account = mapper.map(loginDTO,Account.class);
-        UserDO userDO = db.byAccount(account);
-        userDO.getAccount().setToken(account.getToken());
-        return userDO;
+
+        return null;
     }
 
     public Boolean process(UserDO userDO){
-        return redis.addRedis(userDO);
+        return null;
     }
 
     public void completable(UserDO userDO){

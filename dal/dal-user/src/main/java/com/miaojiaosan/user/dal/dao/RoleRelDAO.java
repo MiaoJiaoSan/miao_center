@@ -5,7 +5,7 @@ import java.util.Date;
 public class RoleRelDAO {
     private Long id;
 
-    private Long userId;
+    private Long accountId;
 
     private Long roleId;
 
@@ -23,12 +23,12 @@ public class RoleRelDAO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Long getRoleId() {

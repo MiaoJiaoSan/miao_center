@@ -1,10 +1,6 @@
 package com.miaojiaosan.user.api;
 
-import com.miaojiaosan.common.Result;
-import com.miaojiaosan.user.cmd.opt.LoginOpt;
-import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 用户
@@ -13,18 +9,5 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @FeignClient(name = "user", path = "/user/opt")
 public interface UserOptApi {
-  /**
-   * 注册
-   * @param registryOpt {@link RegistryOpt}
-   * @return true 注册成功
-   */
-  @PostMapping("/registry")
-  Result<Boolean> registry(RegistryOpt registryOpt);
-  /**
-   * 登录
-   * @param loginOpt {@link LoginOpt}
-   * @return true 登录成功
-   */
-  @PostMapping("/login")
-  Result<Boolean> login(LoginOpt loginOpt);
+
 }

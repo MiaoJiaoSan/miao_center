@@ -1,11 +1,10 @@
 package com.miaojiaosan.user.domain;
 
-import com.miaojiaosan.common.enums.RoleCode;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
+import com.miaojiaosan.user.service.dto.RegistryDTO;
 import lombok.Data;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -64,8 +63,8 @@ public class UserDO {
    */
   private Long modifyTime;
 
-  public void registry(){
-
+  public void registry(RegistryDTO registryDTO){
+    this.account.setPassword(registryDTO.getPassword());
   }
 
   public boolean login(String password){

@@ -3,7 +3,7 @@
 <mapper namespace="com.miaojiaosan.user.dal.mapper.RoleRelMapper" >
   <resultMap id="BaseResultMap" type="com.miaojiaosan.user.dal.dao.RoleRelDAO" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="account_id" property="accountId" jdbcType="BIGINT" />
     <result column="role_id" property="roleId" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="BIGINT" />
     <result column="modify" property="modify" jdbcType="BIGINT" />
@@ -14,16 +14,16 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.miaojiaosan.user.dal.dao.RoleRelDAO" >
-    insert into role_rel (id, user_id, role_id, 
+    insert into role_rel (id, account_id, role_id, 
       version, modify, modify_time
       )
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, 
       #{version,jdbcType=BIGINT}, #{modify,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.miaojiaosan.user.dal.dao.RoleRelDAO" >
     update role_rel
-    set user_id = #{userId,jdbcType=BIGINT},
+    set account_id = #{accountId,jdbcType=BIGINT},
       role_id = #{roleId,jdbcType=BIGINT},
       version = #{version,jdbcType=BIGINT},
       modify = #{modify,jdbcType=BIGINT},
@@ -31,12 +31,12 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, user_id, role_id, version, modify, modify_time
+    select id, account_id, role_id, version, modify, modify_time
     from role_rel
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_id, role_id, version, modify, modify_time
+    select id, account_id, role_id, version, modify, modify_time
     from role_rel
   </select>
 </mapper>

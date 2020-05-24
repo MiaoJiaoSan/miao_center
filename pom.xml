@@ -19,6 +19,7 @@
         <module>zuul</module>
         <module>admin</module>
         <module>jwt</module>
+        <module>dal</module>
     </modules>
 
     <properties>
@@ -91,6 +92,11 @@
             <dependency>
                 <groupId>com.miaojiaosan</groupId>
                 <artifactId>component</artifactId>
+                <version>${miao.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miaojiaosan</groupId>
+                <artifactId>dal-user</artifactId>
                 <version>${miao.version}</version>
             </dependency>
         </dependencies>

@@ -5,7 +5,6 @@ import com.miaojiaosan.user.api.AccountQryApi;
 import com.miaojiaosan.user.service.AccountQryService;
 import com.miaojiaosan.user.service.dto.AccountDTO;
 import com.miaojiaosan.user.vo.AccountVO;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

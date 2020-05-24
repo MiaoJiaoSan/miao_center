@@ -12,10 +12,6 @@ import java.util.Date;
 public class AccountVO {
 
   /**
-   * 主键
-   */
-  private Long id;
-  /**
    * 账号
    */
   private String account;
@@ -36,23 +32,7 @@ public class AccountVO {
    */
   private String phone;
   /**
-   * 验证
+   * token
    */
-  private Integer validate;
-  /**
-   * 用户id
-   */
-  private Long userId;
-  /**
-   * 版本
-   */
-  private Long version;
-  /**
-   *  操作人
-   */
-  private Long modify;
-  /**
-   * 操作时间
-   */
-  private Date modifyTime;
+  private String accessToken;
 }

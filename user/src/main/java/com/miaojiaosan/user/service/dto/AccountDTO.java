@@ -37,7 +37,7 @@ public class AccountDTO {
   /**
    * 验证
    */
-  private Integer validate;
+  private String refreshToken;
   /**
    * 用户id
    */

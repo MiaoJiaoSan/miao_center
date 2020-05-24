@@ -1,4 +1,4 @@
-package com.miaojiaosan.demo.configuration;
+package com.miaojiaosan.user.configuration;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +29,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     http.csrf().disable()
         .authorizeRequests()
         //放行
-        .antMatchers("/actuator/**").permitAll()
+        .antMatchers("/actuator/**","/account/opt/**").permitAll()
         //鉴权
         .antMatchers("/**").authenticated();
   }
@@ -38,7 +38,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) {
     resources.tokenStore(tokenStore);
-    resources.authenticationEntryPoint(new RefreshTokenAuthenticationEntryPoint());
+//    resources.authenticationEntryPoint(new RefreshTokenAuthenticationEntryPoint());
 
   }
 }
