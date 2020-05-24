@@ -51,6 +51,7 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
     try {
       String accessToken = request.getHeader(AUTHORIZATION);
+      assert accessToken != null;
       //解析异常，如果是401则处理
       ResponseEntity<?> result = exceptionTranslator.translate(authException);
       if (result.getStatusCode() == HttpStatus.UNAUTHORIZED) {
