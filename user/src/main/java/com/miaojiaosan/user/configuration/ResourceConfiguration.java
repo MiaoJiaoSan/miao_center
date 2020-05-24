@@ -38,7 +38,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) {
     resources.tokenStore(tokenStore);
-//    resources.authenticationEntryPoint(new RefreshTokenAuthenticationEntryPoint());
+    resources.authenticationEntryPoint(new RefreshTokenAuthenticationEntryPoint());
 
   }
 }

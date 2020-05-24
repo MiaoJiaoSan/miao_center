@@ -27,5 +27,5 @@ public interface AccountOptApi {
    * @return true 登录成功
    */
   @PostMapping("/login")
-  Result<Boolean> login(LoginOpt loginOpt);
+  Result<AccountVO> login(LoginOpt loginOpt);
 }

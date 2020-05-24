@@ -6,6 +6,7 @@ import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.event.RegistryEvent;
 import com.miaojiaosan.user.repository.UserRepository;
 import com.miaojiaosan.user.service.UserOptService;
+import com.miaojiaosan.user.service.processor.LoginProcessor;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -27,31 +28,11 @@ import javax.annotation.Resource;
 public class RegistryListener implements ApplicationListener<RegistryEvent> {
 
   @Resource
-  private RestTemplate restTemplate;
-
-  @Value("${security.oauth2.client.access-token-uri}")
-  private String accessTokenUri;
-
-  @Resource
-  private UserRepository userRepository;
+  private LoginProcessor loginProcessor;
 
   @Override
   public void onApplicationEvent(RegistryEvent event) {
     UserDO userDO = (UserDO) event.getSource();
-    Account account = userDO.getAccount();
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-    headers.setBasicAuth("web", "miaojiaosan");
-    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("grant_type", "password");
-    params.add("scope", "all");
-    params.add("username", account.getAccount());
-    params.add("password", account.getPassword());
-    HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-    ResponseEntity<Token> exchange = restTemplate.exchange(accessTokenUri, HttpMethod.POST, entity, Token.class);
-    Token token = exchange.getBody();
-    account.setRefreshToken(token.getRefresh_token());
-    userRepository.refreshToken(userDO);
-    account.setAccessToken(token.getToken_type() + " " + token.getAccess_token());
+    loginProcessor.process(userDO);
   }
 }

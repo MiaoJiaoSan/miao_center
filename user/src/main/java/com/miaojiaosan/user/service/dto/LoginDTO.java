@@ -19,15 +19,19 @@ public class LoginDTO {
    */
   private String password;
   /**
-   * 版本
+   * 名称
    */
-  private Long version;
+  private String nickname;
   /**
-   *  操作人
+   * 邮箱
    */
-  private Long modify;
+  private String email;
   /**
-   * 操作时间
+   * 电话
    */
-  private Date modifyTime;
+  private String phone;
+  /**
+   * token
+   */
+  private String accessToken;
 }

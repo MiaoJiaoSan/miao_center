@@ -67,8 +67,7 @@ public class UserDO {
     this.account.setPassword(registryDTO.getPassword());
   }
 
-  public boolean login(String password){
-    return this.account.getPassword().equals(password);
+  public void login(){
   }
 
 }

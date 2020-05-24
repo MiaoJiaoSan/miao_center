@@ -14,5 +14,5 @@ public class LoginOpt {
 
   private String password;
 
-  private String token;
+  private String accessToken;
 }

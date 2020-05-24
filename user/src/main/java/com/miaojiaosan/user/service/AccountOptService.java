@@ -20,5 +20,5 @@ public interface AccountOptService {
    * @param loginDTO {@link LoginDTO}
    * @return true 登录成功
    */
-  Boolean login(LoginDTO loginDTO);
+  LoginDTO login(LoginDTO loginDTO);
 }

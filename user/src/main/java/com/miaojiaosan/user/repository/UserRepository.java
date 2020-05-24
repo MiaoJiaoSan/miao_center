@@ -97,9 +97,19 @@ public class UserRepository {
   }
 
 
+  @Transactional(readOnly =  true, rollbackFor = Exception.class)
   public UserDO byAccount(Account account) {
-
-    return null;
+    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
+    UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
+    List<RoleRelDAO> roleRelLst = roleRelMapperEx.byAccountId(userAccountDAO.getId());
+    List<UserRoleDAO> userRoleLst = userRoleMapperEx.byIds(roleRelLst.stream().map(RoleRelDAO::getRoleId)
+        .collect(Collectors.toList()));
+    UserDO userDO = mapper.map(userPersonDAO, UserDO.class);
+    account = mapper.map(userAccountDAO, Account.class);
+    List<Role> roles = userRoleLst.stream().map(dao -> mapper.map(dao, Role.class)).collect(Collectors.toList());
+    userDO.setAccount(account);
+    userDO.setRoles(roles);
+    return userDO;
   }
 
 

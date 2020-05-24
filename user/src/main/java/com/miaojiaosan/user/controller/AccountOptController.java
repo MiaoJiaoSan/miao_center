@@ -9,10 +9,7 @@ import com.miaojiaosan.user.service.dto.LoginDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import com.miaojiaosan.user.vo.AccountVO;
 import org.dozer.Mapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -36,14 +33,12 @@ public class AccountOptController implements AccountOptApi {
     return Result.successful(vo);
   }
 
-  @PostMapping("/login")
+  @PatchMapping("/login")
   @Override
-  public Result<Boolean> login(@RequestBody LoginOpt loginOpt) {
-    Result<Boolean> result = Result.unsuccessful("登录失败");
-    LoginDTO loginDTO = mapper.map(loginOpt, LoginDTO.class);
-    if(accountOptService.login(loginDTO)){
-      result = Result.successful(true);
-    }
-    return result;
+  public Result<AccountVO> login(@RequestBody LoginOpt loginOpt) {
+    LoginDTO dto = mapper.map(loginOpt, LoginDTO.class);
+    dto = accountOptService.login(dto);
+    AccountVO vo = mapper.map(dto, AccountVO.class);
+    return Result.successful(vo);
   }
 }

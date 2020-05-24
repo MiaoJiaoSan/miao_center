@@ -35,11 +35,11 @@ public class AccountOptServiceImpl implements AccountOptService {
   }
 
   @Override
-  public Boolean login(LoginDTO loginDTO) {
+  public LoginDTO login(LoginDTO loginDTO) {
     UserDO userDO = loginProcessor.prepare(loginDTO);
-    boolean loginRst = userDO.login(loginDTO.getPassword());
-    Boolean rst = loginProcessor.process(userDO);
+    userDO.login();
+    loginProcessor.process(userDO);
     loginProcessor.completable(userDO);
-    return loginRst&&rst;
+    return mapper.map(userDO.getAccount(),LoginDTO.class);
   }
 }
