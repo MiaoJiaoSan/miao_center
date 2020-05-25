@@ -11,7 +11,6 @@ import com.miaojiaosan.user.dal.mapperex.UserRoleMapperEx;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
-import com.miaojiaosan.user.service.dto.AccountDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import org.dozer.Mapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +22,6 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author miaojiaosan
@@ -48,6 +46,7 @@ public class UserRepository {
   public UserDO create(RegistryDTO registryDTO){
     Account account = mapper.map(registryDTO, Account.class);
     account.setRefreshToken("");
+    account.setPassword("{bcrypt}"+ new BCryptPasswordEncoder().encode(registryDTO.getPassword()));
     UserRoleDAO normal = userRoleMapperEx.byCode("NORMAL");
     UserDO userDO = new UserDO();
     userDO.setAccount(account);
@@ -70,17 +69,15 @@ public class UserRepository {
   @Transactional(readOnly =  true, rollbackFor = Exception.class)
   public UserDO byAccount(Account account) {
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
-    UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
-    List<RoleRelDAO> roleRelLst = roleRelMapperEx.byAccountId(userAccountDAO.getId());
-    List<UserRoleDAO> userRoleLst = userRoleMapperEx.byIds(roleRelLst.stream().map(RoleRelDAO::getRoleId)
-        .collect(Collectors.toList()));
-    UserDO userDO = mapper.map(userPersonDAO, UserDO.class);
-    account = mapper.map(userAccountDAO, Account.class);
-    List<Role> roles = userRoleLst.stream().map(dao -> mapper.map(dao, Role.class)).collect(Collectors.toList());
-    userDO.setAccount(account);
-    userDO.setRoles(roles);
-    return userDO;
+    return getUserDO(userAccountDAO);
   }
+
+  @Transactional(readOnly =  true, rollbackFor = Exception.class)
+  public UserDO byId(Account account) {
+    UserAccountDAO userAccountDAO = userAccountMapperEx.selectByPrimaryKey(account.getId());
+    return getUserDO(userAccountDAO);
+  }
+
 
   @Transactional(rollbackFor = Exception.class)
   public void add(UserDO userDO) {
@@ -91,7 +88,6 @@ public class UserRepository {
     Account account = userDO.getAccount();
     account.setModify(userId);
     UserAccountDAO accountDAO = mapper.map(account, UserAccountDAO.class);
-    accountDAO.setPassword("{bcrypt}"+ new BCryptPasswordEncoder().encode(account.getPassword()));
     accountDAO.setUserId(userId);
     accountDAO.setModify(userId);
     accountDAO.setEmail(user.getEmail());
@@ -120,6 +116,19 @@ public class UserRepository {
     userPersonMapperEx.modify(userPersonDAO);
   }
 
+  private UserDO getUserDO(UserAccountDAO userAccountDAO) {
+    Account account;
+    UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
+    List<RoleRelDAO> roleRelLst = roleRelMapperEx.byAccountId(userAccountDAO.getId());
+    List<UserRoleDAO> userRoleLst = userRoleMapperEx.byIds(roleRelLst.stream().map(RoleRelDAO::getRoleId)
+        .collect(Collectors.toList()));
+    UserDO userDO = mapper.map(userPersonDAO, UserDO.class);
+    account = mapper.map(userAccountDAO, Account.class);
+    List<Role> roles = userRoleLst.stream().map(dao -> mapper.map(dao, Role.class)).collect(Collectors.toList());
+    userDO.setAccount(account);
+    userDO.setRoles(roles);
+    return userDO;
+  }
 
 
 }

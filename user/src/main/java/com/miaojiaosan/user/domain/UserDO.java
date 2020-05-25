@@ -2,9 +2,11 @@ package com.miaojiaosan.user.domain;
 
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
+import com.miaojiaosan.user.service.dto.PasswordDTO;
 import com.miaojiaosan.user.service.dto.PersonChangeDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -87,6 +89,14 @@ public class UserDO {
     this.account.setEmail(email);
     this.account.setPassword(phone);
     this.account.setModify(this.id);
+    this.account.setNickname(personChangeDTO.getNickname());
+    this.account.setPicture(personChangeDTO.getPicture());
+  }
+
+  public void password(PasswordDTO passwordDTO) {
+    assert this.account.getPassword().equals(passwordDTO.getOldPassword())
+        && passwordDTO.getPassword().equals(passwordDTO.getRePassword());
+    this.account.setPassword("{bcrypt}"+ new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
   }
 }
 

@@ -29,6 +29,7 @@ public class UserOptController implements UserOptApi {
   private Mapper mapper;
 
   @PatchMapping("/change")
+  @Override
   public Result<Boolean> change(@RequestBody PersonChangeOpt personChangeOpt){
     PersonChangeDTO person = mapper.map(personChangeOpt, PersonChangeDTO.class);
     return Result.successful(userOptService.change(person));

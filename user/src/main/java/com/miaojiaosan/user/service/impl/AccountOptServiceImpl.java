@@ -3,8 +3,10 @@ package com.miaojiaosan.user.service.impl;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.service.AccountOptService;
 import com.miaojiaosan.user.service.dto.LoginDTO;
+import com.miaojiaosan.user.service.dto.PasswordDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import com.miaojiaosan.user.service.processor.LoginProcessor;
+import com.miaojiaosan.user.service.processor.PasswordProcessor;
 import com.miaojiaosan.user.service.processor.RegistryProcessor;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class AccountOptServiceImpl implements AccountOptService {
   private LoginProcessor loginProcessor;
 
   @Resource
+  private PasswordProcessor passwordProcessor;
+
+  @Resource
   private Mapper mapper;
 
   @Override
@@ -37,9 +42,18 @@ public class AccountOptServiceImpl implements AccountOptService {
   @Override
   public LoginDTO login(LoginDTO loginDTO) {
     UserDO userDO = loginProcessor.prepare(loginDTO);
-    userDO.login();
     loginProcessor.process(userDO);
+    userDO.login();
     loginProcessor.completable(userDO);
     return mapper.map(userDO.getAccount(),LoginDTO.class);
+  }
+
+  @Override
+  public Boolean password(PasswordDTO passwordDTO) {
+    UserDO userDO = passwordProcessor.prepare(passwordDTO);
+    userDO.password(passwordDTO);
+    passwordProcessor.process(userDO);
+    loginProcessor.completable(userDO);
+    return true;
   }
 }

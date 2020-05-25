@@ -2,8 +2,6 @@ package com.miaojiaosan.user.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @author miaojiaosan
  * @date 2020/4/25
@@ -11,6 +9,10 @@ import java.util.Date;
 @Data
 public class AccountVO {
 
+  /**
+   *
+   */
+  private Long id;
   /**
    * 账号
    */

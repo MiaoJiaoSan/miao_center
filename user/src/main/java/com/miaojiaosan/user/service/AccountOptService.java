@@ -1,6 +1,7 @@
 package com.miaojiaosan.user.service;
 
 import com.miaojiaosan.user.service.dto.LoginDTO;
+import com.miaojiaosan.user.service.dto.PasswordDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 
 /**
@@ -21,4 +22,12 @@ public interface AccountOptService {
    * @return true 登录成功
    */
   LoginDTO login(LoginDTO loginDTO);
+
+
+  /**
+   * 重置密码
+   * @param passwordDTO {@link PasswordDTO}
+   * @return true 成功
+   */
+  Boolean password(PasswordDTO passwordDTO);
 }

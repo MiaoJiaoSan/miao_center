@@ -61,7 +61,7 @@ hystrix:
           semaphore:
             maxConcurrentRequests: 10
           thread:
-            timeoutInMilliseconds: 1000
+            timeoutInMilliseconds: 2000
 
 
 management:

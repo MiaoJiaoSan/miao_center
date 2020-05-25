@@ -14,7 +14,15 @@ public class PersonChangeDTO {
   /**
    * 账号
    */
-  private String account;
+  private Long id;
+  /**
+   *
+   */
+  private String nickname;
+  /**
+   *
+   */
+  private String picture;
   /**
    * 姓名
    */

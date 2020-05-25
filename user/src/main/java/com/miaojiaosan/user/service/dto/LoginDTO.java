@@ -2,14 +2,16 @@ package com.miaojiaosan.user.service.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @author miaojiaosan
  * @date 2020/5/4
  */
 @Data
 public class LoginDTO {
+  /**
+   *
+   */
+  private Long id;
   /**
    * 账号
    */
