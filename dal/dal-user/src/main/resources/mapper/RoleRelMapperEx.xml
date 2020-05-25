@@ -17,9 +17,6 @@
             <if test="modify != null">
                 modify,
             </if>
-            <if test="modifyTime != null">
-                modify_time,
-            </if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -32,9 +29,6 @@
             </if>
             <if test="modify != null">
                 #{modify,jdbcType=BIGINT},
-            </if>
-            <if test="modifyTime != null">
-                #{modifyTime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -53,9 +47,6 @@
                 <if test="item.modify != null">
                     modify,
                 </if>
-                <if test="item.modifyTime != null">
-                    modify_time,
-                </if>
             </trim>
             values
             <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -68,9 +59,6 @@
                 </if>
                 <if test="item.modify != null">
                     #{item.modify,jdbcType=BIGINT},
-                </if>
-                <if test="item.modifyTime != null">
-                    #{item.modifyTime,jdbcType=TIMESTAMP},
                 </if>
             </trim>
         </foreach>

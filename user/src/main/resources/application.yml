@@ -3,8 +3,6 @@ server:
 
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   security:
     user:
       name: user
@@ -124,14 +122,9 @@ hystrix:
             maxConcurrentRequests: 10
           thread:
             timeoutInMilliseconds: 1000
+
 security:
-  #    user:
-  #      name: demo
-  #      password: demo
   oauth2:
-    resource:
-      jwt:
-        key-uri: http://localhost:8080/jwt-proxy/oauth/token_key
     client:
       access-token-uri: http://zuul/jwt-proxy/oauth/token
       grant-type: password

@@ -20,5 +20,12 @@ public interface UserPersonMapperEx extends UserPersonMapper {
   @Override
   int insert(UserPersonDAO record);
 
+  /**
+   * 修改UserPerson
+   * @param record {@link UserPersonDAO}
+   * @return 行
+   */
+  int modify(UserPersonDAO record);
+
 
 }

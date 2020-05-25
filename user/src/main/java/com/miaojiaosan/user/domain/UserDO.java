@@ -2,6 +2,7 @@ package com.miaojiaosan.user.domain;
 
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
+import com.miaojiaosan.user.service.dto.PersonChangeDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 import lombok.Data;
 
@@ -70,5 +71,22 @@ public class UserDO {
   public void login(){
   }
 
+  public void change(PersonChangeDTO personChangeDTO){
+    //修改账号信息
+    this.name = personChangeDTO.getName();
+    this.age = personChangeDTO.getAge();
+    this.certificatesType = personChangeDTO.getCertificatesType();
+    this.certificates = personChangeDTO.getCertificates();
+    this.modify = this.id;
+    String email = personChangeDTO.getEmail();
+    String phone = personChangeDTO.getPhone();
+    this.email = email;
+    this.phone = phone;
+
+    //修改用户信息
+    this.account.setEmail(email);
+    this.account.setPassword(phone);
+    this.account.setModify(this.id);
+  }
 }
 

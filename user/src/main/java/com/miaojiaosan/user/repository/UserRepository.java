@@ -60,6 +60,27 @@ public class UserRepository {
     return userDO;
   }
 
+  @Transactional(rollbackFor = Exception.class)
+  public void refreshToken(UserDO userDO){
+    UserAccountDAO account = mapper.map(userDO.getAccount(), UserAccountDAO.class);
+    userAccountMapperEx.refreshToken(account);
+  }
+
+
+  @Transactional(readOnly =  true, rollbackFor = Exception.class)
+  public UserDO byAccount(Account account) {
+    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
+    UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
+    List<RoleRelDAO> roleRelLst = roleRelMapperEx.byAccountId(userAccountDAO.getId());
+    List<UserRoleDAO> userRoleLst = userRoleMapperEx.byIds(roleRelLst.stream().map(RoleRelDAO::getRoleId)
+        .collect(Collectors.toList()));
+    UserDO userDO = mapper.map(userPersonDAO, UserDO.class);
+    account = mapper.map(userAccountDAO, Account.class);
+    List<Role> roles = userRoleLst.stream().map(dao -> mapper.map(dao, Role.class)).collect(Collectors.toList());
+    userDO.setAccount(account);
+    userDO.setRoles(roles);
+    return userDO;
+  }
 
   @Transactional(rollbackFor = Exception.class)
   public void add(UserDO userDO) {
@@ -91,25 +112,12 @@ public class UserRepository {
   }
 
   @Transactional(rollbackFor = Exception.class)
-  public void refreshToken(UserDO userDO){
-    UserAccountDAO account = mapper.map(userDO.getAccount(), UserAccountDAO.class);
-    userAccountMapperEx.refreshToken(account);
-  }
-
-
-  @Transactional(readOnly =  true, rollbackFor = Exception.class)
-  public UserDO byAccount(Account account) {
-    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
-    UserPersonDAO userPersonDAO = userPersonMapperEx.selectByPrimaryKey(userAccountDAO.getUserId());
-    List<RoleRelDAO> roleRelLst = roleRelMapperEx.byAccountId(userAccountDAO.getId());
-    List<UserRoleDAO> userRoleLst = userRoleMapperEx.byIds(roleRelLst.stream().map(RoleRelDAO::getRoleId)
-        .collect(Collectors.toList()));
-    UserDO userDO = mapper.map(userPersonDAO, UserDO.class);
-    account = mapper.map(userAccountDAO, Account.class);
-    List<Role> roles = userRoleLst.stream().map(dao -> mapper.map(dao, Role.class)).collect(Collectors.toList());
-    userDO.setAccount(account);
-    userDO.setRoles(roles);
-    return userDO;
+  public void modify(UserDO userDO){
+    UserPersonDAO userPersonDAO = mapper.map(userDO, UserPersonDAO.class);
+    Account account = userDO.getAccount();
+    UserAccountDAO userAccountDAO = mapper.map(account, UserAccountDAO.class);
+    userAccountMapperEx.modify(userAccountDAO);
+    userPersonMapperEx.modify(userPersonDAO);
   }
 
 

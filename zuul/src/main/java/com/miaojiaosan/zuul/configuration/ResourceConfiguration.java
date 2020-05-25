@@ -1,4 +1,4 @@
-package com.miaojiaosan.user.configuration;
+package com.miaojiaosan.zuul.configuration;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +29,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     http.csrf().disable()
         .authorizeRequests()
         //放行
-        .antMatchers("/actuator/**","/account/opt/**").permitAll()
+        .antMatchers("/user-proxy/account/opt/**","/jwt-proxy/oauth/token").permitAll()
         //鉴权
         .antMatchers("/**").authenticated();
   }

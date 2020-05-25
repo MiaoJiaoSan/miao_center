@@ -35,9 +35,6 @@
             <if test="modify != null">
                 modify,
             </if>
-            <if test="modifyTime != null">
-                modify_time,
-            </if>
             <if test="userId != null">
                 user_id,
             </if>
@@ -69,9 +66,6 @@
             </if>
             <if test="modify != null">
                 #{modify,jdbcType=BIGINT},
-            </if>
-            <if test="modifyTime != null">
-                #{modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
@@ -110,9 +104,6 @@
              </if>
              <if test="modify != null">
                  modify = #{modify,jdbcType=BIGINT},
-             </if>
-             <if test="modifyTime != null">
-                 modify_time = #{modifyTime,jdbcType=TIMESTAMP},
              </if>
              <if test="userId != null">
                  user_id = #{userId,jdbcType=BIGINT},

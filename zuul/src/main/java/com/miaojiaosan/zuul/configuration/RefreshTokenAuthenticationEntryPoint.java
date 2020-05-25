@@ -1,4 +1,4 @@
-package com.miaojiaosan.user.configuration;
+package com.miaojiaosan.zuul.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miaojiaosan.user.dal.dao.UserAccountDAO;

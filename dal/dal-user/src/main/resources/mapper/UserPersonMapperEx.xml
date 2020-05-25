@@ -86,9 +86,44 @@
             <if test="modify == null">
                 0,
             </if>
-            <if test="modifyTime != null">
-                #{modifyTime,jdbcType=TIMESTAMP},
-            </if>
         </trim>
     </insert>
+
+
+    <update id="modify" parameterType="com.miaojiaosan.user.dal.dao.UserPersonDAO">
+        update user_person
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificatesType != null">
+                certificates_type = #{certificatesType,jdbcType=INTEGER},
+            </if>
+            <if test="certificates != null">
+                certificates = #{certificates,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            <if test="modify != null">
+                modify = #{modify,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>
