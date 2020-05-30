@@ -20,6 +20,7 @@
         <module>admin</module>
         <module>jwt</module>
         <module>dal</module>
+        <module>api</module>
     </modules>
 
     <properties>
@@ -88,7 +89,11 @@
                 <artifactId>contiperf</artifactId>
                 <version>2.3.4</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.miaojiaosan</groupId>
+                <artifactId>api</artifactId>
+                <version>${miao.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.miaojiaosan</groupId>
                 <artifactId>component</artifactId>

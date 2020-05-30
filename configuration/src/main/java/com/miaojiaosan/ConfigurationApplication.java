@@ -1,4 +1,4 @@
-package com.miaojiaosan.filter;
+package com.miaojiaosan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

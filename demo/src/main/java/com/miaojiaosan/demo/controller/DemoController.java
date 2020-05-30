@@ -3,6 +3,7 @@ package com.miaojiaosan.demo.controller;
 import com.miaojiaosan.common.Result;
 import com.miaojiaosan.user.api.AccountOptApi;
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
+import com.miaojiaosan.user.vo.AccountVO;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
@@ -168,11 +169,11 @@ public class DemoController {
   private AccountOptApi accountOptApi;
 
   @GetMapping("/feignLogin")
-  public Result<Boolean> feignLogin(){
+  public Result<AccountVO> feignLogin(){
     LoginOpt loginOpt = new LoginOpt();
     loginOpt.setAccount("demoData");
     loginOpt.setPassword("demoData");
-    loginOpt.setToken(UUID.randomUUID().toString().replace("-",""));
+    loginOpt.setAccessToken(UUID.randomUUID().toString().replace("-",""));
     return accountOptApi.login(loginOpt);
   }
 

@@ -17,5 +17,5 @@ public interface UserOptApi {
    * @param personChangeOpt {@link PersonChangeOpt}
    * @return true 成功
    */
-  Result<Boolean> change( PersonChangeOpt personChangeOpt);
+  Result<Boolean> change(PersonChangeOpt personChangeOpt);
 }
