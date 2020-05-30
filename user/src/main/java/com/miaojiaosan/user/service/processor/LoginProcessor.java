@@ -1,6 +1,7 @@
 package com.miaojiaosan.user.service.processor;
 
 import com.miaojiaosan.common.dto.Token;
+import com.miaojiaosan.processor.Processor;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.event.LoginEvent;
@@ -24,7 +25,7 @@ import javax.annotation.Resource;
  * @date 2020/05/15
  */
 @Component
-public class LoginProcessor {
+public class LoginProcessor implements Processor<LoginDTO, UserDO> {
     @Resource
     private RestTemplate restTemplate;
 
@@ -39,14 +40,13 @@ public class LoginProcessor {
     @Resource
     private ApplicationEventPublisher eventPublisher;
 
-    @Transactional(readOnly =  true, rollbackFor = Exception.class)
+    @Override
     public UserDO prepare(LoginDTO loginDTO){
         Account account = mapper.map(loginDTO, Account.class);
-        UserDO userDO = userRepository.byAccount(account);
-        userDO.getAccount().setPassword(loginDTO.getPassword());
-        return userDO;
+        return userRepository.byAccount(account);
     }
 
+    @Override
     public void process(UserDO userDO){
         Account account = userDO.getAccount();
         HttpHeaders headers = new HttpHeaders();
@@ -66,7 +66,9 @@ public class LoginProcessor {
         account.setAccessToken(token.getToken_type() + " " + token.getAccess_token());
     }
 
+    @Override
     public void completable(UserDO userDO){
         eventPublisher.publishEvent(new LoginEvent(userDO));
     }
+
 }

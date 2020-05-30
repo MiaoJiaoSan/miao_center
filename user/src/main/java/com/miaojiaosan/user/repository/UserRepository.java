@@ -1,5 +1,6 @@
 package com.miaojiaosan.user.repository;
 
+import com.miaojiaosan.generate.IdGenerate;
 import com.miaojiaosan.user.dal.dao.RoleRelDAO;
 import com.miaojiaosan.user.dal.dao.UserAccountDAO;
 import com.miaojiaosan.user.dal.dao.UserPersonDAO;
@@ -16,11 +17,11 @@ import org.dozer.Mapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -38,31 +39,41 @@ public class UserRepository {
   private UserRoleMapperEx userRoleMapperEx;
   @Resource
   private RoleRelMapperEx roleRelMapperEx;
+  @Resource
+  private IdGenerate idGenerate;
 
   @Resource
   private Mapper mapper;
 
   @Transactional(readOnly =  true, rollbackFor = Exception.class)
   public UserDO create(RegistryDTO registryDTO){
+    //存在
+    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(registryDTO.getAccount());
+    if(Objects.nonNull(userAccountDAO)){
+      registryDTO.setAccount(null);
+      registryDTO.setPassword(null);
+      return new UserDO();
+    }
+    long userId = idGenerate.nextId(),accountId = idGenerate.nextId();
     Account account = mapper.map(registryDTO, Account.class);
+    account.setId(accountId);
     account.setRefreshToken("");
-    account.setPassword("{bcrypt}"+ new BCryptPasswordEncoder().encode(registryDTO.getPassword()));
-    UserRoleDAO normal = userRoleMapperEx.byCode("NORMAL");
-    UserDO userDO = new UserDO();
+    UserDO userDO = mapper.map(registryDTO, UserDO.class);
+    userDO.setId(userId);
     userDO.setAccount(account);
-    userDO.setEmail(account.getEmail());
-    userDO.setPhone(account.getPhone());
+    UserRoleDAO normal = userRoleMapperEx.byCode("NORMAL");
     List<UserRoleDAO> userRoleLst = Collections.singletonList(normal);
     List<Role> roles = userRoleLst.stream()
-        .map(role -> mapper.map(role, Role.class)).collect(Collectors.toList());
+        .map(role ->  mapper.map(role, Role.class)).collect(Collectors.toList());
     userDO.setRoles(roles);
     return userDO;
   }
 
   @Transactional(rollbackFor = Exception.class)
   public void refreshToken(UserDO userDO){
-    UserAccountDAO account = mapper.map(userDO.getAccount(), UserAccountDAO.class);
-    userAccountMapperEx.refreshToken(account);
+    UserAccountDAO accountDAO = mapper.map(userDO.getAccount(), UserAccountDAO.class);
+    accountDAO.setModify(accountDAO.getId());
+    userAccountMapperEx.refreshToken(accountDAO);
   }
 
 
@@ -81,29 +92,27 @@ public class UserRepository {
 
   @Transactional(rollbackFor = Exception.class)
   public void add(UserDO userDO) {
-    UserPersonDAO user = mapper.map(userDO, UserPersonDAO.class);
-    userPersonMapperEx.insert(user);
-    Long userId = user.getId();
-    userDO.setId(userId);
+    //转DO
+    UserPersonDAO userDAO = mapper.map(userDO, UserPersonDAO.class);
     Account account = userDO.getAccount();
-    account.setModify(userId);
     UserAccountDAO accountDAO = mapper.map(account, UserAccountDAO.class);
-    accountDAO.setUserId(userId);
-    accountDAO.setModify(userId);
-    accountDAO.setEmail(user.getEmail());
-    accountDAO.setPhone(user.getPhone());
-    userAccountMapperEx.insert(accountDAO);
+    //组装数据关系
     Long accountId = accountDAO.getId();
-    Assert.notNull(accountId,"账号已被注册");
-    account.setId(accountId);
+    accountDAO.setUserId(userDAO.getId());
+    accountDAO.setModify(accountId);
+    userDAO.setModify(accountId);
     List<Role> roles = userDO.getRoles();
     List<RoleRelDAO> roleRelLst = roles.stream().map(role -> {
       RoleRelDAO roleRelDAO = new RoleRelDAO();
+      roleRelDAO.setId(idGenerate.nextId());
       roleRelDAO.setAccountId(accountId);
       roleRelDAO.setRoleId(role.getId());
       roleRelDAO.setModify(accountId);
       return roleRelDAO;
     }).collect(Collectors.toList());
+    //持久化
+    userPersonMapperEx.insert(userDAO);
+    userAccountMapperEx.insert(accountDAO);
     roleRelMapperEx.batchInsert(roleRelLst);
   }
 
@@ -112,6 +121,9 @@ public class UserRepository {
     UserPersonDAO userPersonDAO = mapper.map(userDO, UserPersonDAO.class);
     Account account = userDO.getAccount();
     UserAccountDAO userAccountDAO = mapper.map(account, UserAccountDAO.class);
+    Long id = userAccountDAO.getId();
+    userPersonDAO.setModify(id);
+    userAccountDAO.setModify(id);
     userAccountMapperEx.modify(userAccountDAO);
     userPersonMapperEx.modify(userPersonDAO);
   }

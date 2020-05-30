@@ -1,35 +1,22 @@
 package com.miaojiaosan.user.api;
 
 import com.miaojiaosan.common.Result;
+import com.miaojiaosan.user.vo.AccountVO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * @author miaojiaosan
  * @date 2020/4/25
  */
+@FeignClient(name = "zuul", path = "/user-proxy/account/qry")
 public interface AccountQryApi {
   /**
    * 根据id查询账号信息
    * @param id 账号id
    * @return 账号信息
    */
-  Result<?> byId(Long id);
-
-  /**
-   * 根据账号查询账号信息
-   * @param account 账号
-   * @return 账号信息
-   */
-  Result<?> byAccount(String account);
-  /**
-   * 根据邮箱查询账号信息
-   * @param email 邮箱
-   * @return 账号信息
-   */
-  Result<?> byEmail(String email);
-  /**
-   * 根据电话查询账号信息
-   * @param phone 电话
-   * @return 账号信息
-   */
-  Result<?> byPhone(String phone);
+  @GetMapping("/id/{id}")
+  Result<AccountVO> byId(@PathVariable("id") Long id);
 }

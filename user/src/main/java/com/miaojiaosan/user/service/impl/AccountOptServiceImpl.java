@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 public class AccountOptServiceImpl implements AccountOptService {
 
 
-
   @Resource
   private RegistryProcessor registryProcessor;
 
@@ -33,8 +32,9 @@ public class AccountOptServiceImpl implements AccountOptService {
   @Override
   public RegistryDTO registry(RegistryDTO registryDTO) {
     UserDO userDO = registryProcessor.prepare(registryDTO);
-    registryProcessor.process(userDO);
     userDO.registry(registryDTO);
+    registryProcessor.process(userDO);
+    userDO.registryAfter(registryDTO);
     registryProcessor.completable(userDO);
     return mapper.map(userDO.getAccount(), RegistryDTO.class);
   }
@@ -42,10 +42,11 @@ public class AccountOptServiceImpl implements AccountOptService {
   @Override
   public LoginDTO login(LoginDTO loginDTO) {
     UserDO userDO = loginProcessor.prepare(loginDTO);
+    userDO.login(loginDTO);
     loginProcessor.process(userDO);
-    userDO.login();
     loginProcessor.completable(userDO);
-    return mapper.map(userDO.getAccount(),LoginDTO.class);
+    return mapper.map(userDO.getAccount(), LoginDTO.class);
+
   }
 
   @Override

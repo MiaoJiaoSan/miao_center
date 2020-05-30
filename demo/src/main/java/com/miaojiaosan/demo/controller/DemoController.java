@@ -1,7 +1,6 @@
 package com.miaojiaosan.demo.controller;
 
 import com.miaojiaosan.common.Result;
-import com.miaojiaosan.user.api.AccountOptApi;
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.miaojiaosan.user.vo.AccountVO;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;

@@ -8,8 +8,6 @@ import lombok.Data;
  */
 @Data
 public class PasswordOpt {
-
-  private Long id;
   /**
    * 旧密码
    */

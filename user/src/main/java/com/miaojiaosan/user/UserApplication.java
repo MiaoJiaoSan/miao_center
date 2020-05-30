@@ -1,5 +1,6 @@
 package com.miaojiaosan.user;
 
+import com.miaojiaosan.generate.IdGenerate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -23,5 +24,10 @@ public class UserApplication {
   @LoadBalanced
   public RestTemplate restTemplate() {
     return new RestTemplate();
+  }
+
+  @Bean
+  public IdGenerate idGenerate(){
+    return new IdGenerate(1,1);
   }
 }

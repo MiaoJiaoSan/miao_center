@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>dal-user</module>
+        <module>dal-material</module>
     </modules>
 
 

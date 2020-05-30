@@ -1,0 +1,17 @@
+create table user_account
+(
+    id            bigint unsigned auto_increment
+        primary key,
+    user_id       bigint          default 0                 not null,
+    account       varchar(64)                               not null,
+    password      varchar(255)                              not null,
+    nickname      varchar(64)     default ''                not null,
+    picture       varchar(255)    default ''                not null,
+    email         varchar(64)     default ''                not null,
+    phone         varchar(64)     default ''                not null,
+    refresh_token blob                                      not null,
+    version       bigint unsigned default 1                 not null,
+    modify        bigint unsigned default 0                 not null,
+    modify_time   timestamp       default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+)
+    charset = utf8mb4;

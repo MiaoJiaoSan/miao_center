@@ -104,6 +104,11 @@
                 <artifactId>dal-user</artifactId>
                 <version>${miao.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.miaojiaosan</groupId>
+                <artifactId>dal-material</artifactId>
+                <version>${miao.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

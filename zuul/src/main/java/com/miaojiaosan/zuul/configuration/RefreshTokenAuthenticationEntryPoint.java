@@ -3,6 +3,8 @@ package com.miaojiaosan.zuul.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miaojiaosan.user.dal.dao.UserAccountDAO;
 import com.miaojiaosan.user.dal.mapperex.UserAccountMapperEx;
+import com.miaojiaosan.zuul.constant.Constant;
+import com.miaojiaosan.zuul.request.RequestWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.http.*;
@@ -13,7 +15,6 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ import java.util.*;
 public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEntryPoint {
 
   public static final String ERROR = "error";
-  public static final String AUTHORIZATION = "Authorization";
+
 
   private WebResponseExceptionTranslator<?> exceptionTranslator = new DefaultWebResponseExceptionTranslator();
 
@@ -50,7 +51,7 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
     try {
-      String accessToken = request.getHeader(AUTHORIZATION);
+      String accessToken = request.getHeader(Constant.AUTHORIZATION);
       assert accessToken != null;
       //解析异常，如果是401则处理
       ResponseEntity<?> result = exceptionTranslator.translate(authException);
@@ -79,10 +80,7 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
   @SuppressWarnings("unchecked")
   private Map<String, String> refresh(String accessToken) throws IOException {
     MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-    BASE64Decoder decoder = new BASE64Decoder();
-    String decode = new String(decoder.decodeBuffer(accessToken.split(" ")[1].split("\\.")[1]));
-    Map<String, String> map = objectMapper.readValue(decode, Map.class);
-    UserAccountDAO account = userAccountMapperEx.byAccount(map.get("user_name"));
+    UserAccountDAO account = getUserAccount(accessToken);
     formData.add("grant_type", "refresh_token");
     formData.add("refresh_token", account.getRefreshToken());
     HttpHeaders headers = new HttpHeaders();
@@ -93,6 +91,17 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
     //如果刷新异常
     assert responseInfo != null;
     return responseInfo;
+  }
+
+  /**
+   * 解析出账号信息
+   * @param accessToken
+   * @return
+   * @throws IOException
+   */
+  private UserAccountDAO getUserAccount(String accessToken) throws IOException {
+    Map<String, String> map = Constant.getAccessToken(accessToken);
+    return userAccountMapperEx.byAccount(map.get("user_name"));
   }
 
   /**
@@ -119,40 +128,10 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
    */
   private void requestWrapper(HttpServletRequest request, HttpServletResponse response, Map<String, String> responseInfo) throws ServletException, IOException {
     String accessToken = responseInfo.get("token_type") + " " + responseInfo.get("access_token");
-    HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request){
-      private Map<String, String> headerMap = new HashMap<>(1);
-      public HttpServletRequestWrapper addHeader(String name, String value) {
-        headerMap.put(name, value);
-        return this;
-      }
-
-      @Override
-      public String getHeader(String name) {
-        String headerValue = super.getHeader(name);
-        if (headerMap.containsKey(name)) {
-          headerValue = headerMap.get(name);
-        }
-        return headerValue;
-      }
-
-      @Override
-      public Enumeration<String> getHeaderNames() {
-        List<String> names = Collections.list(super.getHeaderNames());
-        names.addAll(headerMap.keySet());
-        return Collections.enumeration(names);
-      }
-
-      @Override
-      public Enumeration<String> getHeaders(String name) {
-        List<String> values = Collections.list(super.getHeaders(name));
-        if (headerMap.containsKey(name)) {
-          values = Collections.singletonList(headerMap.get(name));
-        }
-        return Collections.enumeration(values);
-      }
-    }.addHeader(AUTHORIZATION, accessToken);
+    RequestWrapper requestWrapper = new RequestWrapper(request);
+    requestWrapper.addHeader(Constant.AUTHORIZATION, accessToken);
     //如果刷新成功则存储cookie并且跳转到原来需要访问的页面
-    response.addHeader(AUTHORIZATION, accessToken);
+    response.addHeader(Constant.AUTHORIZATION, accessToken);
     request.getRequestDispatcher(request.getRequestURI()).forward(requestWrapper, response);
   }
 }

@@ -1,0 +1,11 @@
+create table role_rel
+(
+    id          bigint unsigned auto_increment
+        primary key,
+    account_id  bigint unsigned                           not null,
+    role_id     bigint unsigned                           not null,
+    version     bigint unsigned default 1                 not null,
+    modify      bigint unsigned                           not null,
+    modify_time timestamp       default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+)
+    charset = utf8mb4;

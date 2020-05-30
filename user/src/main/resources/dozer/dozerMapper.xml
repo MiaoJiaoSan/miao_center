@@ -3,15 +3,11 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
     <mapping>
-        <class-a>com.miaojiaosan.user.dal.dao.UserAccountDAO</class-a>
-        <class-b>com.miaojiaosan.user.domain.data.Account</class-b>
+        <class-a>com.miaojiaosan.user.service.dto.RegistryDTO</class-a>
+        <class-b>com.miaojiaosan.user.domain.UserDO</class-b>
         <field>
             <a>account</a>
-            <b>account</b>
-        </field>
-        <field>
-            <a>password</a>
-            <b>password</b>
+            <b>account.account</b>
         </field>
     </mapping>
 </mappings>

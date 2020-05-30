@@ -10,11 +10,6 @@ import java.util.Date;
  */
 @Data
 public class PersonChangeOpt {
-
-  /**
-   *
-   */
-  private Long id;
   /**
    *
    */
