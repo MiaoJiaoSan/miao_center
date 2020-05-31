@@ -1,6 +1,7 @@
 package com.miaojiaosan.user.domain;
 
 import com.miaojiaosan.common.dto.Token;
+import com.miaojiaosan.exception.ModifyException;
 import com.miaojiaosan.generate.IdGenerate;
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.miaojiaosan.user.cmd.opt.PasswordOpt;
@@ -138,7 +139,8 @@ public class UserDO {
    * @param opt {@link LoginOpt}
    */
   public void login(LoginOpt opt){
-    if(!new BCryptPasswordEncoder().matches(opt.getPassword()
+    if(Objects.isNull(this.account)
+        || !new BCryptPasswordEncoder().matches(opt.getPassword()
             ,this.account.getPassword().substring(BCRYPT.length()))){
       throw new LoginException();
     }
@@ -165,6 +167,9 @@ public class UserDO {
    * @param opt {@link PersonChangeOpt}
    */
   public void change(PersonChangeOpt opt){
+    if(Objects.isNull(this.account)){
+      throw new ModifyException();
+    }
     Long id = this.id;
     mapper.map(opt,this);
     this.id = id;
@@ -176,8 +181,9 @@ public class UserDO {
    * @param opt {@link PasswordOpt}
    */
   public void password(PasswordOpt opt) {
-    if(!Objects.equals(opt.getId(),this.account.getId()) ||
-        !new BCryptPasswordEncoder().matches(opt.getOldPassword()
+    if(Objects.isNull(this.account)
+        ||!Objects.equals(opt.getId(),this.account.getId())
+        ||!new BCryptPasswordEncoder().matches(opt.getOldPassword()
             , this.account.getPassword().substring(BCRYPT.length()))
         || !opt.getPassword().equals(opt.getRePassword())){
       throw new ModifyPasswordException();

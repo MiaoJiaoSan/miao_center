@@ -7,6 +7,8 @@ import com.miaojiaosan.user.service.UserOptService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 
@@ -26,7 +28,7 @@ public class UserOptServiceImpl implements UserOptService {
   private UserRepository userRepository;
 
   @Override
-  public Boolean change(PersonChangeOpt opt) {
+  public Boolean change(@RequestBody @Validated PersonChangeOpt opt) {
     UserDO userDO = applicationContext.getBean(UserDO.class);
     userRepository.byId(opt.getAccountId(), userDO);
     userDO.change(opt);

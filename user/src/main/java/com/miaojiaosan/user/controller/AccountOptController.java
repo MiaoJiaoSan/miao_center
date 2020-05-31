@@ -10,6 +10,7 @@ import com.miaojiaosan.user.service.dto.RegistryDTO;
 import com.miaojiaosan.user.vo.AccountVO;
 import com.miaojiaosan.utils.AccountUtil;
 import org.dozer.Mapper;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,21 +31,21 @@ public class AccountOptController {
 
 
   @PostMapping("/registry")
-  public Result<AccountVO> registry(@RequestBody RegistryOpt opt) {
+  public Result<AccountVO> registry(@RequestBody @Validated RegistryOpt opt) {
     RegistryDTO dto = accountOptService.registry(opt);
     AccountVO vo = mapper.map(dto, AccountVO.class);
     return Result.successful(vo);
   }
 
   @PatchMapping("/login")
-  public Result<AccountVO> login(@RequestBody LoginOpt opt) {
+  public Result<AccountVO> login(@RequestBody @Validated LoginOpt opt) {
     LoginDTO dto = accountOptService.login(opt);
     AccountVO vo = mapper.map(dto, AccountVO.class);
     return Result.successful(vo);
   }
 
   @PatchMapping("/password")
-  public Result<Boolean> password(@RequestBody PasswordOpt opt){
+  public Result<Boolean> password(@RequestBody @Validated PasswordOpt opt){
     opt.setId(AccountUtil.id(httpServletRequest));
     return Result.successful(accountOptService.password(opt));
   }

@@ -78,7 +78,7 @@ public class MaterialDO {
   private Integer isOriginal;
 
   /**
-   * 草稿 0草稿 1发布
+   * 草稿 1草稿 2发布
    */
   private Integer state;
   /**

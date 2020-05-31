@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -93,12 +94,18 @@ public class UserRepository {
 
   public void byAccount(String account, UserDO userDO){
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account);
+    if(Objects.isNull(userAccountDAO)){
+      return;
+    }
     Account accountValue = mapper.map(userAccountDAO, Account.class);
     userDO.setAccount(accountValue);
   }
 
   public void byId(Long id, UserDO userDO){
     UserAccountDAO userAccountDAO = userAccountMapperEx.selectByPrimaryKey(id);
+    if(Objects.isNull(userAccountDAO)){
+      return;
+    }
     Account account = mapper.map(userAccountDAO, Account.class);
     userDO.setAccount(account);
     userDO.setId(userAccountDAO.getUserId());

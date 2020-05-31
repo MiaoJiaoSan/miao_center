@@ -5,6 +5,7 @@ import com.miaojiaosan.material.cmd.opt.RecycleOpt;
 import com.miaojiaosan.material.cmd.opt.ReleaseOpt;
 import com.miaojiaosan.material.service.MaterialOptService;
 import com.miaojiaosan.utils.AccountUtil;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -26,13 +27,13 @@ public class MaterialOptController {
    * @return value==true 成功
   */
   @PostMapping("/release")
-  public Result<Long> release(@RequestBody ReleaseOpt opt) {
+  public Result<Long> release(@RequestBody @Validated ReleaseOpt opt) {
     opt.setAccountId(AccountUtil.id(httpServletRequest));
     return Result.successful(materialOptService.release(opt));
   }
 
   @DeleteMapping("/recycle")
-  public Result<Boolean> recycle(@RequestBody RecycleOpt opt){
+  public Result<Boolean> recycle(@RequestBody @Validated RecycleOpt opt){
     opt.setAccountId(AccountUtil.id(httpServletRequest));
     return Result.successful(materialOptService.recycle(opt));
   }
