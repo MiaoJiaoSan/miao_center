@@ -61,7 +61,7 @@ public class AccountOptServiceImpl implements AccountOptService {
     //创建
     UserDO userDO = applicationContext.getBean(UserDO.class);
     //加载
-    userRepository.loadByAccount(opt.getAccount(), userDO);
+    userRepository.byAccount(opt.getAccount(), userDO);
     //登陆
     userDO.login(opt);
     //领域事件
@@ -76,7 +76,7 @@ public class AccountOptServiceImpl implements AccountOptService {
     //创建
     UserDO userDO = applicationContext.getBean(UserDO.class);
     //加载
-    userRepository.loadById(opt.getId(),userDO);
+    userRepository.byId(opt.getId(),userDO);
     //修改密码
     userDO.password(opt);
     //TODO 领域事件

@@ -4,7 +4,6 @@ import com.miaojiaosan.common.Result;
 import com.miaojiaosan.user.cmd.opt.PersonChangeOpt;
 import com.miaojiaosan.user.service.UserOptService;
 import com.miaojiaosan.utils.AccountUtil;
-import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +23,6 @@ public class UserOptController {
 
   @Resource
   private UserOptService userOptService;
-
-  @Resource
-  private Mapper mapper;
-
   @Resource
   private HttpServletRequest httpServletRequest;
 

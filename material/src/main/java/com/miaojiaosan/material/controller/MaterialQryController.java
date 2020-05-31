@@ -37,7 +37,6 @@ public class MaterialQryController {
 
   @GetMapping("/draft")
   public Result<PageVO<MaterialListVO>> draft(MaterialListQry qry){
-    MaterialListDTO dto = mapper.map(qry, MaterialListDTO.class);
     qry.setAccountId(AccountUtil.id(httpServletRequest));
     PageDTO<MaterialListDTO> pageDTO = materialQryService.draft(qry);
     PageVO<MaterialListVO> page = new PageVO<>(pageDTO.getList().stream()
@@ -48,7 +47,6 @@ public class MaterialQryController {
 
   @GetMapping("/list")
   public Result<PageVO<MaterialListVO>> list(MaterialListQry qry){
-    MaterialListDTO dto = mapper.map(qry, MaterialListDTO.class);
     PageDTO<MaterialListDTO> pageDTO = materialQryService.list(qry);
     PageVO<MaterialListVO> page = new PageVO<>(pageDTO.getList().stream()
         .map(materialDTO -> mapper.map(materialDTO,MaterialListVO.class))

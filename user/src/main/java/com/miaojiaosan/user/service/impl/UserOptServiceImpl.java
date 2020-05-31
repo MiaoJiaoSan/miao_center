@@ -1,13 +1,9 @@
 package com.miaojiaosan.user.service.impl;
 
 import com.miaojiaosan.user.cmd.opt.PersonChangeOpt;
-import com.miaojiaosan.user.dal.dao.UserAccountDAO;
-import com.miaojiaosan.user.dal.mapperex.UserAccountMapperEx;
 import com.miaojiaosan.user.domain.UserDO;
-import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.repository.UserRepository;
 import com.miaojiaosan.user.service.UserOptService;
-import org.dozer.Mapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -32,7 +28,7 @@ public class UserOptServiceImpl implements UserOptService {
   @Override
   public Boolean change(PersonChangeOpt opt) {
     UserDO userDO = applicationContext.getBean(UserDO.class);
-    userRepository.loadById(opt.getAccountId(), userDO);
+    userRepository.byId(opt.getAccountId(), userDO);
     userDO.change(opt);
     //TOO 领域事件
     return true;
