@@ -52,15 +52,16 @@ public class PreFilter extends ZuulFilter {
     RequestContext cxt = RequestContext.getCurrentContext();
     //获取request
     HttpServletRequest request = cxt.getRequest();
+    String account = "";
     Map<String, String> accountInfo = Constant.getAccessToken(request.getHeader(Constant.AUTHORIZATION));
     if(!accountInfo.isEmpty()) {
       RequestWrapper requestWrapper = new RequestWrapper(request);
       requestWrapper.addHeader("id", String.valueOf(accountInfo.get("id")));
-      String account = accountInfo.get("user_name");
+      account = accountInfo.get("user_name");
       requestWrapper.addHeader("account", account);
       cxt.setRequest(requestWrapper);
-      log.info("account:{} request to uri:{}", account, request.getRequestURI());
     }
+    log.info("account:{} request to uri:{}", account, request.getRequestURI());
     return null;
   }
 }

@@ -1,3 +1,4 @@
+/*
 package com.miaojiaosan.demo.controller;
 
 import com.miaojiaosan.common.Result;
@@ -13,10 +14,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
 
+*/
 /**
  * @author miaojiaosan
  * @date 2020/5/5
- */
+ *//*
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DemoApplication.class)
 @WebAppConfiguration
@@ -46,3 +49,4 @@ public class DemoTest {
   }
 
 }
+*/

@@ -17,7 +17,7 @@ spring:
   application:
     name: user
   redis:
-    host: www.miaojiaosan.com
+    host: localhost
     port: 9736
     database: 0
     timeout: 3000ms
@@ -26,9 +26,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      url: jdbc:mysql://www.immortal.net.cn:3306/miaojiaosan?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/miaojiaosan?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
       username: root
-      password: immortal
+      password: root
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initial-size: 10

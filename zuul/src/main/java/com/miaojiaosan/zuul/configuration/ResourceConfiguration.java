@@ -29,7 +29,12 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     http.csrf().disable()
         .authorizeRequests()
         //放行
-        .antMatchers("/user-proxy/account/opt/**","/jwt-proxy/oauth/token").permitAll()
+        .antMatchers(
+            "/user-proxy/account/opt/registry"
+            ,"/user-proxy/account/opt/login"
+            ,"/material-proxy/material/qry/list"
+            ,"/material-proxy/material/qry/id/**"
+            ,"/jwt-proxy/oauth/token").permitAll()
         //鉴权
         .antMatchers("/**").authenticated();
   }
