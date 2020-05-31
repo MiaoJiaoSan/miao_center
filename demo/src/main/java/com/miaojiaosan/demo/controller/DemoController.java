@@ -1,8 +1,6 @@
 package com.miaojiaosan.demo.controller;
 
 import com.miaojiaosan.common.Result;
-import com.miaojiaosan.user.cmd.opt.LoginOpt;
-import com.miaojiaosan.user.vo.AccountVO;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.UUID;
 
 /**
  * @author miaojiaosan
@@ -164,17 +161,17 @@ public class DemoController {
   }
 
 
-  @Resource
-  private AccountOptApi accountOptApi;
-
-  @GetMapping("/feignLogin")
-  public Result<AccountVO> feignLogin(){
-    LoginOpt loginOpt = new LoginOpt();
-    loginOpt.setAccount("demoData");
-    loginOpt.setPassword("demoData");
-    loginOpt.setAccessToken(UUID.randomUUID().toString().replace("-",""));
-    return accountOptApi.login(loginOpt);
-  }
+//  @Resource
+//  private AccountOptApi accountOptApi;
+//
+//  @GetMapping("/feignLogin")
+//  public Result<AccountVO> feignLogin(){
+//    LoginOpt loginOpt = new LoginOpt();
+//    loginOpt.setAccount("demoData");
+//    loginOpt.setPassword("demoData");
+//    loginOpt.setAccessToken(UUID.randomUUID().toString().replace("-",""));
+//    return accountOptApi.login(loginOpt);
+//  }
 
   @Value("${spring.application.name}")
   private String applicationName;

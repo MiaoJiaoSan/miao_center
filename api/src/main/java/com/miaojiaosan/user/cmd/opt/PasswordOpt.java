@@ -9,6 +9,10 @@ import lombok.Data;
 @Data
 public class PasswordOpt {
   /**
+   * 用户id
+   */
+  private Long id;
+  /**
    * 旧密码
    */
   private String oldPassword;

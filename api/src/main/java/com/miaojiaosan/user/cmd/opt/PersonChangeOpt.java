@@ -11,6 +11,10 @@ import java.util.Date;
 @Data
 public class PersonChangeOpt {
   /**
+   * account
+   */
+  private Long accountId;
+  /**
    *
    */
   private String nickname;

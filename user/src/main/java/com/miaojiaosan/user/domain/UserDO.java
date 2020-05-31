@@ -1,18 +1,33 @@
 package com.miaojiaosan.user.domain;
 
-import com.miaojiaosan.user.domain.exception.LoginException;
-import com.miaojiaosan.user.domain.exception.ModifyException;
-import com.miaojiaosan.user.domain.exception.ModifyPasswordException;
-import com.miaojiaosan.user.domain.exception.RegistryException;
+import com.miaojiaosan.common.dto.Token;
+import com.miaojiaosan.generate.IdGenerate;
+import com.miaojiaosan.user.cmd.opt.LoginOpt;
+import com.miaojiaosan.user.cmd.opt.PasswordOpt;
+import com.miaojiaosan.user.cmd.opt.PersonChangeOpt;
+import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
-import com.miaojiaosan.user.service.dto.LoginDTO;
-import com.miaojiaosan.user.service.dto.PasswordDTO;
-import com.miaojiaosan.user.service.dto.PersonChangeDTO;
-import com.miaojiaosan.user.service.dto.RegistryDTO;
+import com.miaojiaosan.user.domain.exception.LoginException;
+import com.miaojiaosan.user.domain.exception.ModifyPasswordException;
+import com.miaojiaosan.user.domain.exception.RegistryException;
+import com.miaojiaosan.user.repository.UserRepository;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +35,8 @@ import java.util.Objects;
  * @author miaojiaosan
  * @date 2020/4/25
  */
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Data
 public class UserDO {
 
@@ -73,56 +90,101 @@ public class UserDO {
    */
   private Long modifyTime;
 
-  public void registry(RegistryDTO registryDTO){
-    if(Objects.isNull(registryDTO.getAccount())){
+
+  @Resource
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private UserRepository userRepository;
+  @Resource
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private RestTemplate restTemplate;
+  @Resource
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private Mapper mapper;
+  @Resource
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private IdGenerate idGenerate;
+  @Value("${security.oauth2.client.access-token-uri}")
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private String accessTokenUri;
+
+  /**
+   * 注册
+   * @param opt {@link RegistryOpt}
+   * @param roles {@link Role}
+   */
+  public void registry(RegistryOpt opt, List<Role> roles){
+    mapper.map(opt, this);
+    this.id = idGenerate.nextId();
+    Account account = mapper.map(opt, Account.class);
+    this.setAccount(account);
+    account.setId(idGenerate.nextId());
+    account.setRefreshToken("");
+    this.roles = roles;
+    String password = this.account.getPassword();
+    this.account.setPassword(BCRYPT + new BCryptPasswordEncoder().encode(password));
+    if(!userRepository.add(this)){
       throw new RegistryException();
     }
-    this.account.setPassword(BCRYPT + new BCryptPasswordEncoder().encode(registryDTO.getPassword()));
+    this.account.setPassword(password);
   }
 
-  public void registryAfter(RegistryDTO registryDTO){
-    this.account.setPassword(registryDTO.getPassword());
-  }
-
-  public void login(LoginDTO loginDTO){
-    if(!new BCryptPasswordEncoder()
-        .matches(loginDTO.getPassword()
+  /**
+   * 登录
+   * @param opt {@link LoginOpt}
+   */
+  public void login(LoginOpt opt){
+    if(!new BCryptPasswordEncoder().matches(opt.getPassword()
             ,this.account.getPassword().substring(BCRYPT.length()))){
       throw new LoginException();
     }
-    this.account.setPassword(loginDTO.getPassword());
+    this.account.setPassword(opt.getPassword());
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+    headers.setBasicAuth("web", "miaojiaosan");
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    params.add("grant_type", "password");
+    params.add("scope", "all");
+    params.add("username", this.account.getAccount());
+    params.add("password", this.account.getPassword());
+    HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+    ResponseEntity<Token> exchange = restTemplate.exchange(accessTokenUri, HttpMethod.POST, entity, Token.class);
+    Token token = exchange.getBody();
+    assert token != null;
+    account.setRefreshToken(token.getRefresh_token());
+    userRepository.refreshToken(this);
+    account.setAccessToken(token.getToken_type() + " " + token.getAccess_token());
   }
 
-  public void change(PersonChangeDTO personChangeDTO){
-    if(!Objects.equals(personChangeDTO.getId(),this.account.getId())){
-      throw new ModifyException();
-    }
-    //修改账号信息
-    this.name = personChangeDTO.getName();
-    this.age = personChangeDTO.getAge();
-    this.certificatesType = personChangeDTO.getCertificatesType();
-    this.certificates = personChangeDTO.getCertificates();
-    this.modify = this.id;
-    String email = personChangeDTO.getEmail();
-    String phone = personChangeDTO.getPhone();
-    this.email = email;
-    this.phone = phone;
-
-    //修改用户信息
-    this.account.setEmail(email);
-    this.account.setPassword(phone);
-    this.account.setModify(this.id);
-    this.account.setNickname(personChangeDTO.getNickname());
-    this.account.setPicture(personChangeDTO.getPicture());
+  /**
+   * 修改用户信息
+   * @param opt {@link PersonChangeOpt}
+   */
+  public void change(PersonChangeOpt opt){
+    Long id = this.id;
+    mapper.map(opt,this);
+    this.id = id;
+    userRepository.modifyUser(this);
   }
 
-  public void password(PasswordDTO passwordDTO) {
-    if(!Objects.equals(passwordDTO.getId(),this.account.getId()) &&
-        this.account.getPassword().equals(passwordDTO.getOldPassword())
-        && passwordDTO.getPassword().equals(passwordDTO.getRePassword())){
+  /**
+   * 修改密码
+   * @param opt {@link PasswordOpt}
+   */
+  public void password(PasswordOpt opt) {
+    if(!Objects.equals(opt.getId(),this.account.getId()) ||
+        !new BCryptPasswordEncoder().matches(opt.getOldPassword()
+            , this.account.getPassword().substring(BCRYPT.length()))
+        || !opt.getPassword().equals(opt.getRePassword())){
       throw new ModifyPasswordException();
     }
-    this.account.setPassword(BCRYPT+ new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
+    this.account.setPassword(BCRYPT+ new BCryptPasswordEncoder().encode(opt.getPassword()));
+    userRepository.modifyAccount(this);
   }
+
 }
 

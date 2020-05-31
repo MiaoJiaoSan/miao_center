@@ -1,6 +1,7 @@
 package com.miaojiaosan.material.service;
 
-import com.miaojiaosan.material.service.dto.ReleaseDTO;
+import com.miaojiaosan.material.cmd.opt.RecycleOpt;
+import com.miaojiaosan.material.cmd.opt.ReleaseOpt;
 
 /**
  * 素材
@@ -10,7 +11,13 @@ public interface MaterialOptService {
 
   /**
    * 发布素材
-   * @param releaseDTO {@link ReleaseDTO}
+   * @param opt {@link ReleaseOpt}
    */
-  Boolean release(ReleaseDTO releaseDTO);
+  Long release(ReleaseOpt opt);
+
+  /**
+   * 删除素材
+   * @param opt {@link RecycleOpt}
+   */
+  Boolean recycle(RecycleOpt opt);
 }

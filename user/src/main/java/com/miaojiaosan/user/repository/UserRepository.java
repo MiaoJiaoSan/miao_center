@@ -1,6 +1,7 @@
 package com.miaojiaosan.user.repository;
 
 import com.miaojiaosan.generate.IdGenerate;
+import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import com.miaojiaosan.user.dal.dao.RoleRelDAO;
 import com.miaojiaosan.user.dal.dao.UserAccountDAO;
 import com.miaojiaosan.user.dal.dao.UserPersonDAO;
@@ -12,9 +13,7 @@ import com.miaojiaosan.user.dal.mapperex.UserRoleMapperEx;
 import com.miaojiaosan.user.domain.UserDO;
 import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.data.Role;
-import com.miaojiaosan.user.service.dto.RegistryDTO;
 import org.dozer.Mapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,33 +40,10 @@ public class UserRepository {
   private RoleRelMapperEx roleRelMapperEx;
   @Resource
   private IdGenerate idGenerate;
-
   @Resource
   private Mapper mapper;
 
-  @Transactional(readOnly =  true, rollbackFor = Exception.class)
-  public UserDO create(RegistryDTO registryDTO){
-    //存在
-    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(registryDTO.getAccount());
-    if(Objects.nonNull(userAccountDAO)){
-      registryDTO.setAccount(null);
-      registryDTO.setPassword(null);
-      return new UserDO();
-    }
-    long userId = idGenerate.nextId(),accountId = idGenerate.nextId();
-    Account account = mapper.map(registryDTO, Account.class);
-    account.setId(accountId);
-    account.setRefreshToken("");
-    UserDO userDO = mapper.map(registryDTO, UserDO.class);
-    userDO.setId(userId);
-    userDO.setAccount(account);
-    UserRoleDAO normal = userRoleMapperEx.byCode("NORMAL");
-    List<UserRoleDAO> userRoleLst = Collections.singletonList(normal);
-    List<Role> roles = userRoleLst.stream()
-        .map(role ->  mapper.map(role, Role.class)).collect(Collectors.toList());
-    userDO.setRoles(roles);
-    return userDO;
-  }
+
 
   @Transactional(rollbackFor = Exception.class)
   public void refreshToken(UserDO userDO){
@@ -78,7 +54,7 @@ public class UserRepository {
 
 
   @Transactional(readOnly =  true, rollbackFor = Exception.class)
-  public UserDO byAccount(Account account) {
+  public UserDO byAccount(Account account, UserDO userDO) {
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account.getAccount());
     return getUserDO(userAccountDAO);
   }
@@ -91,7 +67,7 @@ public class UserRepository {
 
 
   @Transactional(rollbackFor = Exception.class)
-  public void add(UserDO userDO) {
+  public Boolean add(UserDO userDO) {
     //转DO
     UserPersonDAO userDAO = mapper.map(userDO, UserPersonDAO.class);
     Account account = userDO.getAccount();
@@ -111,21 +87,27 @@ public class UserRepository {
       return roleRelDAO;
     }).collect(Collectors.toList());
     //持久化
-    userPersonMapperEx.insert(userDAO);
-    userAccountMapperEx.insert(accountDAO);
-    roleRelMapperEx.batchInsert(roleRelLst);
+    if(userAccountMapperEx.insert(accountDAO) == 1){
+      userPersonMapperEx.insert(userDAO);
+      roleRelMapperEx.batchInsert(roleRelLst);
+      return true;
+    }
+    return false;
   }
 
   @Transactional(rollbackFor = Exception.class)
-  public void modify(UserDO userDO){
+  public void modifyUser(UserDO userDO){
     UserPersonDAO userPersonDAO = mapper.map(userDO, UserPersonDAO.class);
+    userPersonDAO.setModify(userDO.getAccount().getId());
+    userPersonMapperEx.modify(userPersonDAO);
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public void modifyAccount(UserDO userDO){
     Account account = userDO.getAccount();
     UserAccountDAO userAccountDAO = mapper.map(account, UserAccountDAO.class);
-    Long id = userAccountDAO.getId();
-    userPersonDAO.setModify(id);
-    userAccountDAO.setModify(id);
+    userAccountDAO.setModify(userAccountDAO.getId());
     userAccountMapperEx.modify(userAccountDAO);
-    userPersonMapperEx.modify(userPersonDAO);
   }
 
   private UserDO getUserDO(UserAccountDAO userAccountDAO) {
@@ -141,6 +123,20 @@ public class UserRepository {
     userDO.setRoles(roles);
     return userDO;
   }
+
+  public void loadByAccount(String account, UserDO userDO){
+    UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account);
+    Account accountValue = mapper.map(userAccountDAO, Account.class);
+    userDO.setAccount(accountValue);
+  }
+
+  public void loadById(Long id, UserDO userDO){
+    UserAccountDAO userAccountDAO = userAccountMapperEx.selectByPrimaryKey(id);
+    Account account = mapper.map(userAccountDAO, Account.class);
+    userDO.setAccount(account);
+    userDO.setId(userAccountDAO.getUserId());
+  }
+
 
 
 }

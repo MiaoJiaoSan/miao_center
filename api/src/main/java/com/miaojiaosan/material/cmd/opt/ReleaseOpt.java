@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class ReleaseOpt {
 
+  private Long id;
 
   private String title;
 
@@ -19,4 +20,6 @@ public class ReleaseOpt {
   private Integer isOriginal;
 
   private Long accountId;
+
+  private Integer state;
 }

@@ -1,7 +1,9 @@
 package com.miaojiaosan.user.service;
 
+import com.miaojiaosan.user.cmd.opt.LoginOpt;
+import com.miaojiaosan.user.cmd.opt.PasswordOpt;
+import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import com.miaojiaosan.user.service.dto.LoginDTO;
-import com.miaojiaosan.user.service.dto.PasswordDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
 
 /**
@@ -11,23 +13,23 @@ public interface AccountOptService {
 
   /**
    * 注册
-   * @param registryDTO {@link RegistryDTO}
+   * @param opt {@link RegistryOpt}
    * @return true 注册成功
    */
-  RegistryDTO registry(RegistryDTO registryDTO);
+  RegistryDTO registry(RegistryOpt opt);
 
   /**
    * 登录
-   * @param loginDTO {@link LoginDTO}
+   * @param opt {@link LoginOpt}
    * @return true 登录成功
    */
-  LoginDTO login(LoginDTO loginDTO);
+  LoginDTO login(LoginOpt opt);
 
 
   /**
    * 重置密码
-   * @param passwordDTO {@link PasswordDTO}
+   * @param opt {@link PasswordOpt}
    * @return true 成功
    */
-  Boolean password(PasswordDTO passwordDTO);
+  Boolean password(PasswordOpt opt);
 }

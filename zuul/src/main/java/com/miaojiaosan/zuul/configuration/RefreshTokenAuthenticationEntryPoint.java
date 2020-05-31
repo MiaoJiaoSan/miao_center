@@ -19,10 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
 
 /**
  *
@@ -95,9 +94,9 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
 
   /**
    * 解析出账号信息
-   * @param accessToken
-   * @return
-   * @throws IOException
+   * @param accessToken accessToken
+   * @return {@link UserAccountDAO}
+   * @throws IOException 异常
    */
   private UserAccountDAO getUserAccount(String accessToken) throws IOException {
     Map<String, String> map = Constant.getAccessToken(accessToken);

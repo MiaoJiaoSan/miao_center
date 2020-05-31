@@ -1,6 +1,7 @@
 package com.miaojiaosan.material;
 
 import com.miaojiaosan.generate.IdGenerate;
+import com.miaojiaosan.material.configuration.FeignConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableEurekaClient
 @SpringCloudApplication
-@EnableFeignClients(basePackages = "com.miaojiaosan.user.api")
+@EnableFeignClients(basePackages = "com.miaojiaosan.user.api", defaultConfiguration = FeignConfiguration.class)
 public class MaterialApplication {
 
   public static void main(String[] args) {

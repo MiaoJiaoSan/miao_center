@@ -4,7 +4,6 @@ import com.miaojiaosan.zuul.constant.Constant;
 import com.miaojiaosan.zuul.request.RequestWrapper;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;

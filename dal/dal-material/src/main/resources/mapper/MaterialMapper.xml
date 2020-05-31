@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="com.miaojiaosan.material.dal.dao.MaterialDAO" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="account_id" property="accountId" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="categories" property="categories" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="number_of_people_reading" property="numberOfPeopleReading" jdbcType="INTEGER" />
     <result column="fabulous" property="fabulous" jdbcType="INTEGER" />
     <result column="is_original" property="isOriginal" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
     <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP" />
     <result column="version" property="version" jdbcType="BIGINT" />
     <result column="modify" property="modify" jdbcType="BIGINT" />
@@ -20,25 +22,27 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.miaojiaosan.material.dal.dao.MaterialDAO" >
-    insert into material (id, account_id, categories, 
-      title, number_of_people_reading, fabulous, 
-      is_original, release_date, version, 
-      modify, modify_time, content
-      )
-    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{categories,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{numberOfPeopleReading,jdbcType=INTEGER}, #{fabulous,jdbcType=INTEGER}, 
-      #{isOriginal,jdbcType=INTEGER}, #{releaseDate,jdbcType=TIMESTAMP}, #{version,jdbcType=BIGINT}, 
-      #{modify,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY}
-      )
+    insert into material (id, account_id, nickname, 
+      categories, title, number_of_people_reading, 
+      fabulous, is_original, state, 
+      release_date, version, modify, 
+      modify_time, content)
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, 
+      #{categories,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{numberOfPeopleReading,jdbcType=INTEGER}, 
+      #{fabulous,jdbcType=INTEGER}, #{isOriginal,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{releaseDate,jdbcType=TIMESTAMP}, #{version,jdbcType=BIGINT}, #{modify,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.miaojiaosan.material.dal.dao.MaterialDAO" >
     update material
     set account_id = #{accountId,jdbcType=BIGINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
       categories = #{categories,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       number_of_people_reading = #{numberOfPeopleReading,jdbcType=INTEGER},
       fabulous = #{fabulous,jdbcType=INTEGER},
       is_original = #{isOriginal,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
       release_date = #{releaseDate,jdbcType=TIMESTAMP},
       version = #{version,jdbcType=BIGINT},
       modify = #{modify,jdbcType=BIGINT},
@@ -47,14 +51,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, account_id, categories, title, number_of_people_reading, fabulous, is_original, 
-    release_date, version, modify, modify_time, content
+    select id, account_id, nickname, categories, title, number_of_people_reading, fabulous, 
+    is_original, state, release_date, version, modify, modify_time, content
     from material
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, account_id, categories, title, number_of_people_reading, fabulous, is_original, 
-    release_date, version, modify, modify_time, content
+    select id, account_id, nickname, categories, title, number_of_people_reading, fabulous, 
+    is_original, state, release_date, version, modify, modify_time, content
     from material
   </select>
 </mapper>

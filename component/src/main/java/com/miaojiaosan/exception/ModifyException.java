@@ -1,6 +1,4 @@
-package com.miaojiaosan.user.domain.exception;
-
-import com.miaojiaosan.exception.BusinessException;
+package com.miaojiaosan.exception;
 
 public class ModifyException extends BusinessException {
   public ModifyException() {

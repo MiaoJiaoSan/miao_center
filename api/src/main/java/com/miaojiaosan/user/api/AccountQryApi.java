@@ -17,6 +17,6 @@ public interface AccountQryApi {
    * @param id 账号id
    * @return 账号信息
    */
-  @GetMapping("/id/{id}")
+  @GetMapping(path={"/id/{id}"})
   Result<AccountVO> byId(@PathVariable("id") Long id);
 }

@@ -9,10 +9,6 @@ import lombok.Data;
 @Data
 public class RegistryDTO {
   /**
-   *
-   */
-  private Long id;
-  /**
    * 账号
    */
   private String account;

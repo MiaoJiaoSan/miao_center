@@ -3,8 +3,7 @@ package com.miaojiaosan.user.controller;
 import com.miaojiaosan.common.Result;
 import com.miaojiaosan.user.cmd.opt.PersonChangeOpt;
 import com.miaojiaosan.user.service.UserOptService;
-import com.miaojiaosan.user.service.dto.PersonChangeDTO;
-import com.miaojiaosan.user.utils.AccountUtil;
+import com.miaojiaosan.utils.AccountUtil;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,11 +32,9 @@ public class UserOptController {
   private HttpServletRequest httpServletRequest;
 
   @PatchMapping("/change")
-  public Result<Boolean> change(@RequestBody PersonChangeOpt personChangeOpt){
-    Long id = AccountUtil.id(httpServletRequest);
-    PersonChangeDTO person = mapper.map(personChangeOpt, PersonChangeDTO.class);
-    person.setId(id);
-    return Result.successful(userOptService.change(person));
+  public Result<Boolean> change(@RequestBody PersonChangeOpt opt){
+    opt.setAccountId(AccountUtil.id(httpServletRequest));
+    return Result.successful(userOptService.change(opt));
   }
 
   

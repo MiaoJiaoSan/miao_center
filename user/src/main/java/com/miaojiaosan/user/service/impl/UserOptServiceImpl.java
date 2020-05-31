@@ -1,9 +1,15 @@
 package com.miaojiaosan.user.service.impl;
 
+import com.miaojiaosan.user.cmd.opt.PersonChangeOpt;
+import com.miaojiaosan.user.dal.dao.UserAccountDAO;
+import com.miaojiaosan.user.dal.mapperex.UserAccountMapperEx;
 import com.miaojiaosan.user.domain.UserDO;
+import com.miaojiaosan.user.domain.data.Account;
+import com.miaojiaosan.user.repository.UserRepository;
 import com.miaojiaosan.user.service.UserOptService;
-import com.miaojiaosan.user.service.dto.PersonChangeDTO;
-import com.miaojiaosan.user.service.processor.PersonChangeProcessor;
+import org.dozer.Mapper;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,16 +22,22 @@ import javax.annotation.Resource;
  */
 @Service
 public class UserOptServiceImpl implements UserOptService {
-
   @Resource
-  private PersonChangeProcessor personChangeProcessor;
+  private ApplicationContext applicationContext;
+  @Resource
+  private ApplicationEventPublisher eventPublisher;
+  @Resource
+  private UserRepository userRepository;
 
   @Override
-  public Boolean change(PersonChangeDTO personChangeDTO) {
-    UserDO userDO = personChangeProcessor.prepare(personChangeDTO);
-    userDO.change(personChangeDTO);
-    personChangeProcessor.process(userDO);
-    personChangeProcessor.completable(userDO);
+  public Boolean change(PersonChangeOpt opt) {
+    UserDO userDO = applicationContext.getBean(UserDO.class);
+    userRepository.loadById(opt.getAccountId(), userDO);
+    userDO.change(opt);
+    //TOO 领域事件
     return true;
   }
+
+
+
 }

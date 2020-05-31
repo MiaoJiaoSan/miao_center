@@ -10,6 +10,8 @@ public class MaterialDAO {
 
     private Long accountId;
 
+    private String nickname;
+
     private Integer categories;
 
     private String title;
@@ -20,6 +22,8 @@ public class MaterialDAO {
 
     private Integer isOriginal;
 
+    private Integer state;
+
     private Date releaseDate;
 
     private Long version;
@@ -29,6 +33,5 @@ public class MaterialDAO {
     private Date modifyTime;
 
     private String content;
-
 
 }

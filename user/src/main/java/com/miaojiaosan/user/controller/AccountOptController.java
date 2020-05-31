@@ -6,10 +6,9 @@ import com.miaojiaosan.user.cmd.opt.PasswordOpt;
 import com.miaojiaosan.user.cmd.opt.RegistryOpt;
 import com.miaojiaosan.user.service.AccountOptService;
 import com.miaojiaosan.user.service.dto.LoginDTO;
-import com.miaojiaosan.user.service.dto.PasswordDTO;
 import com.miaojiaosan.user.service.dto.RegistryDTO;
-import com.miaojiaosan.user.utils.AccountUtil;
 import com.miaojiaosan.user.vo.AccountVO;
+import com.miaojiaosan.utils.AccountUtil;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,26 +30,22 @@ public class AccountOptController {
 
 
   @PostMapping("/registry")
-  public Result<AccountVO> registry(@RequestBody RegistryOpt registryOpt) {
-    RegistryDTO dto = mapper.map(registryOpt, RegistryDTO.class);
-    dto = accountOptService.registry(dto);
+  public Result<AccountVO> registry(@RequestBody RegistryOpt opt) {
+    RegistryDTO dto = accountOptService.registry(opt);
     AccountVO vo = mapper.map(dto, AccountVO.class);
     return Result.successful(vo);
   }
 
   @PatchMapping("/login")
-  public Result<AccountVO> login(@RequestBody LoginOpt loginOpt) {
-    LoginDTO dto = mapper.map(loginOpt, LoginDTO.class);
-    dto = accountOptService.login(dto);
+  public Result<AccountVO> login(@RequestBody LoginOpt opt) {
+    LoginDTO dto = accountOptService.login(opt);
     AccountVO vo = mapper.map(dto, AccountVO.class);
     return Result.successful(vo);
   }
 
   @PatchMapping("/password")
-  public Result<Boolean> password(@RequestBody PasswordOpt passwordOpt){
-    Long id = AccountUtil.id(httpServletRequest);
-    PasswordDTO dto = mapper.map(passwordOpt, PasswordDTO.class);
-    dto.setId(id);
-    return Result.successful(accountOptService.password(dto));
+  public Result<Boolean> password(@RequestBody PasswordOpt opt){
+    opt.setId(AccountUtil.id(httpServletRequest));
+    return Result.successful(accountOptService.password(opt));
   }
 }

@@ -1,6 +1,5 @@
-package com.miaojiaosan.user.utils;
+package com.miaojiaosan.utils;
 
-import com.miaojiaosan.user.domain.exception.UnLoginException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -8,10 +7,7 @@ import java.util.Objects;
 public class AccountUtil {
 
   public static Long id(HttpServletRequest req){
-    String idStr = req.getHeader("id");
-    if(Objects.isNull(idStr)){
-      throw new UnLoginException();
-    }
+    String idStr = (Objects.isNull(idStr = req.getHeader("id"))?"-1":idStr);
     return Long.valueOf(idStr);
   }
 

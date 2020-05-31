@@ -48,8 +48,8 @@ zuul:
   retryable: false
 
 ribbon:
-  ReadTimeout: 10000
-  ConnectTimeout: 2000
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
 
 hystrix:
   command:
@@ -61,7 +61,7 @@ hystrix:
           semaphore:
             maxConcurrentRequests: 10
           thread:
-            timeoutInMilliseconds: 2000
+            timeoutInMilliseconds: 20000
 
 
 management:
