@@ -39,9 +39,6 @@ public class RefreshTokenAuthenticationEntryPoint extends OAuth2AuthenticationEn
   private UserAccountMapperEx userAccountMapperEx;
 
   @Resource
-  private ObjectMapper objectMapper;
-
-  @Resource
   RestTemplate restTemplate;
 
   @Value("${security.oauth2.client.access-token-uri}")

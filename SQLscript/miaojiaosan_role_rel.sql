@@ -1,0 +1,1 @@
+INSERT INTO miaojiaosan.role_rel (id, account_id, role_id, version, modify, modify_time) VALUES (464537955013365760, 464537954547798016, 1, 1, 464537954547798016, '2020-05-31 10:29:04');
