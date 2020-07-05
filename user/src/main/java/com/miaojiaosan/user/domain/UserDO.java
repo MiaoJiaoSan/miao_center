@@ -172,6 +172,7 @@ public class UserDO {
    * @param opt {@link PersonChangeOpt}
    */
   public void change(PersonChangeOpt opt){
+    userRepository.accountById(opt.getAccountId(), this);
     if(Objects.isNull(this.account)){
       throw new ModifyException();
     }
@@ -186,6 +187,9 @@ public class UserDO {
    * @param opt {@link PasswordOpt}
    */
   public void password(PasswordOpt opt) {
+    //加载账号信息
+
+    userRepository.accountById(opt.getId(),this);
     if(Objects.isNull(this.account)
         ||!Objects.equals(opt.getId(),this.account.getId())
         ||!new BCryptPasswordEncoder().matches(opt.getOldPassword()

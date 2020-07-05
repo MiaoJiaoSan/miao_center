@@ -24,9 +24,6 @@ public class AccountOptServiceImpl implements AccountOptService {
   private ApplicationContext applicationContext;
   @Resource
   private ApplicationEventPublisher eventPublisher;
-
-  @Resource
-  private UserRepository userRepository;
   @Resource
   private Mapper mapper;
 
@@ -64,8 +61,6 @@ public class AccountOptServiceImpl implements AccountOptService {
   public Boolean password(PasswordOpt opt) {
     //创建
     UserDO userDO = applicationContext.getBean(UserDO.class);
-    //加载
-    userRepository.accountById(opt.getId(),userDO);
     //修改密码
     userDO.password(opt);
     //TODO 领域事件

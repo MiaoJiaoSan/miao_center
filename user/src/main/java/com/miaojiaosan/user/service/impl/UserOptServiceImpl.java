@@ -24,13 +24,11 @@ public class UserOptServiceImpl implements UserOptService {
   private ApplicationContext applicationContext;
   @Resource
   private ApplicationEventPublisher eventPublisher;
-  @Resource
-  private UserRepository userRepository;
 
   @Override
   public Boolean change(@RequestBody @Validated PersonChangeOpt opt) {
     UserDO userDO = applicationContext.getBean(UserDO.class);
-    userRepository.accountById(opt.getAccountId(), userDO);
+
     userDO.change(opt);
     //TODO 领域事件
     return true;
