@@ -30,9 +30,9 @@ public class UserOptServiceImpl implements UserOptService {
   @Override
   public Boolean change(@RequestBody @Validated PersonChangeOpt opt) {
     UserDO userDO = applicationContext.getBean(UserDO.class);
-    userRepository.byId(opt.getAccountId(), userDO);
+    userRepository.accountById(opt.getAccountId(), userDO);
     userDO.change(opt);
-    //TOO 领域事件
+    //TODO 领域事件
     return true;
   }
 

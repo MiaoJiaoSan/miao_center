@@ -2,6 +2,7 @@ package com.miaojiaosan.user.handler;
 
 import com.miaojiaosan.user.cmd.opt.LoginOpt;
 import com.miaojiaosan.user.domain.UserDO;
+import com.miaojiaosan.user.domain.data.Account;
 import com.miaojiaosan.user.domain.event.RegistryEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,11 +22,10 @@ public class RegistryListener implements ApplicationListener<RegistryEvent> {
   @Override
   public void onApplicationEvent(RegistryEvent event) {
     UserDO userDO = (UserDO) event.getSource();
-    String password = userDO.getAccount().getPassword();
-    userDO.getAccount().setPassword(UserDO.BCRYPT +
-        new BCryptPasswordEncoder().encode(password));
+    Account account = userDO.getAccount();
     LoginOpt opt = new LoginOpt();
-    opt.setPassword(password);
+    opt.setAccount(account.getAccount());
+    opt.setPassword(account.getPassword());
     userDO.login(opt);
   }
 }

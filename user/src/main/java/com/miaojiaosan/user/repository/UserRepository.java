@@ -92,7 +92,8 @@ public class UserRepository {
   }
 
 
-  public void byAccount(String account, UserDO userDO){
+  @Transactional(rollbackFor = Exception.class)
+  public void accountByAccount(String account, UserDO userDO){
     UserAccountDAO userAccountDAO = userAccountMapperEx.byAccount(account);
     if(Objects.isNull(userAccountDAO)){
       return;
@@ -101,7 +102,8 @@ public class UserRepository {
     userDO.setAccount(accountValue);
   }
 
-  public void byId(Long id, UserDO userDO){
+  @Transactional(rollbackFor = Exception.class)
+  public void accountById(Long id, UserDO userDO){
     UserAccountDAO userAccountDAO = userAccountMapperEx.selectByPrimaryKey(id);
     if(Objects.isNull(userAccountDAO)){
       return;

@@ -134,3 +134,12 @@ security:
       access-token-uri: http://zuul/jwt-proxy/oauth/token
       grant-type: password
       scope: all
+
+
+config:
+  redis:
+    host: localhost
+    port: 9736
+    password: redis
+    group: user
+    enable: true

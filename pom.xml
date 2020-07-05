@@ -55,6 +55,11 @@
                 <version>${boot.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.miaojiaosan</groupId>
+                <artifactId>spring-boot-starter-config-miao</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>com.github.dozermapper</groupId>
                 <artifactId>dozer-spring-boot-starter</artifactId>
                 <version>6.2.0</version>

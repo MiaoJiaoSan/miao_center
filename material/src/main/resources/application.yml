@@ -18,9 +18,9 @@ spring:
   application:
     name: material
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/miaojiaosan?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
       username: root
       password: root
@@ -60,6 +60,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
 
 management:
   #默认健康检查全部禁用
